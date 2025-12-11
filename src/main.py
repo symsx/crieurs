@@ -456,9 +456,17 @@ def main():
         print("\n🗺️  Génération de la carte interactive...")
         map_file = generator.generate_map_html(output_carte)
         
+        # Étape 5: Upload FTP optionnel
+        enable_ftp = os.getenv("ENABLE_FTP_UPLOAD", "false").lower() == "true"
+        if enable_ftp:
+            print("\n📤 Upload FTP vers le serveur...")
+            ftp_upload(output_dir)
+        
         print(f"\n✅ Succès!")
         print(f"   • Page HTML: {os.path.abspath(output_file)}")
         print(f"   • Carte interactive: {os.path.abspath(map_file)}")
+        if enable_ftp:
+            print(f"   • Upload FTP: ✓")
         
     except Exception as e:
         print(f"❌ Erreur: {e}")
@@ -467,6 +475,59 @@ def main():
         sys.exit(1)
 
 
+def ftp_upload(output_dir: str):
+    """Upload les fichiers HTML vers le serveur FTP"""
+    from ftp_uploader import FTPUploader
+    
+    # Configuration FTP
+    ftp_enabled = os.getenv("ENABLE_FTP_UPLOAD", "false").lower() == "true"
+    if not ftp_enabled:
+        return
+    
+    ftp_host = os.getenv("FTP_HOST", "").strip()
+    ftp_port = int(os.getenv("FTP_PORT", "21"))
+    ftp_user = os.getenv("FTP_USER", "").strip()
+    ftp_password = os.getenv("FTP_PASSWORD", "").strip()
+    ftp_remote_path = os.getenv("FTP_REMOTE_PATH", "/").strip()
+    ftp_use_tls = os.getenv("FTP_USE_TLS", "false").lower() == "true"
+    
+    # Vérifie les paramètres
+    if not ftp_host or not ftp_user or not ftp_password:
+        print("✗ Paramètres FTP incomplets")
+        print("   Vérifiez FTP_HOST, FTP_USER et FTP_PASSWORD dans le fichier .env")
+        return
+    
+    # Crée l'uploader
+    uploader = FTPUploader(
+        host=ftp_host,
+        port=ftp_port,
+        username=ftp_user,
+        password=ftp_password,
+        use_tls=ftp_use_tls
+    )
+    
+    # Connexion
+    success, msg = uploader.connect()
+    print(f"  {msg}")
+    
+    if not success:
+        return
+    
+    try:
+        # Upload les fichiers
+        print(f"  📁 Uploading vers {ftp_remote_path}...")
+        uploaded, failed = uploader.upload_directory(output_dir, ftp_remote_path)
+        
+        if uploaded > 0:
+            print(f"  ✓ {uploaded} fichier(s) uploadé(s)")
+        if failed > 0:
+            print(f"  ✗ {failed} fichier(s) échoué(s)")
+    
+    finally:
+        uploader.close()
+
+
 if __name__ == "__main__":
     main()
+
 

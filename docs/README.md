@@ -15,6 +15,7 @@ Un outil puissant pour lire vos emails d'annonces d'événements et les afficher
 - 🎨 **Design moderne** : CSS/JavaScript externalisés, dark mode intégré
 - 🔐 **Saisie interactive** : Demande les identifiants si absents du `.env`
 - 🏗️ **Corrections manuelles** : Système de corrections pour données malformées
+- 📤 **Upload FTP** : Upload automatique des pages HTML vers votre site web
 
 ---
 
@@ -162,6 +163,19 @@ Editez `data/corrections_annonces.json` pour corriger des annonces malformées :
   }
 }
 ```
+
+### Upload FTP automatique
+
+Uploadez automatiquement les fichiers HTML vers votre site :
+```env
+ENABLE_FTP_UPLOAD=true
+FTP_HOST=ftp.votre-site.com
+FTP_USER=utilisateur
+FTP_PASSWORD=motdepasse
+FTP_REMOTE_PATH=/public_html/crieurs/
+```
+
+Consultez [FTP_UPLOAD.md](FTP_UPLOAD.md) pour la configuration détaillée.
 
 ---
 

@@ -1,0 +1,51 @@
+{
+  "corrections": {
+    "description": "Corrections manuelles pour les adresses mal géolocalisées par Nominatim",
+    "note": "Clé: lieu tel qu'il apparaît en entrée | Valeur: [latitude, longitude, nom_correct]",
+    "corrections": {
+      "1 Place de l'Église 24300 Nontron": [45.5233, 0.7667, "Place de l'Église, Nontron"],
+      "5 Rue Carnot 24300 Nontron": [45.5238, 0.7680, "Rue Carnot, Nontron"],
+      "11 Place place Alfred d'Agard 24300 Nontron": [45.5220, 0.7692, "Place Alfred d'Agard, Nontron"],
+      "Médiathèque René join Nontron": [45.5195, 0.7698, "Médiathèque de Nontron"],
+      "Place Georges Combeau 24470 Milhac-de-Nontron": [45.5427, 0.8142, "Milhac-de-Nontron"],
+      "Nontron": [45.5233, 0.7667, "Nontron"]
+    }
+  },
+  "indices_geolocalisation": {
+    "description": "Indices pour améliorer la géolocalisation automatique",
+    "problemes_identifies": [
+      {
+        "type": "Commune secondaire mal identifiée",
+        "exemple": "1 Place de l'Église 24300 Nontron → Abjat-sur-Bandiat",
+        "cause": "Nominatim retourne Abjat-sur-Bandiat selon OSM",
+        "solution": "Utiliser correction manuelle ou utiliser commune + code postal"
+      },
+      {
+        "type": "Adresse incomplète",
+        "exemple": "Médiathèque René join Nontron",
+        "cause": "Pas de code postal, Nominatim peut mal interpréter",
+        "solution": "Enrichir avec code postal si disponible"
+      }
+    ],
+    "communes_perigord": {
+      "Nontron": {
+        "latitude": 45.5233,
+        "longitude": 0.7667,
+        "code_postal": "24300",
+        "region": "Dordogne"
+      },
+      "Milhac-de-Nontron": {
+        "latitude": 45.5427,
+        "longitude": 0.8142,
+        "code_postal": "24470",
+        "region": "Dordogne"
+      },
+      "Abjat-sur-Bandiat": {
+        "latitude": 45.5925,
+        "longitude": 0.6633,
+        "code_postal": "24300",
+        "region": "Dordogne"
+      }
+    }
+  }
+}

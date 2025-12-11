@@ -1,0 +1,50 @@
+# Environnement et sécurité
+.env
+.env.local
+.env.*.local
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Output files
+output/
+*.html
+!public/**/*.html
+!docs/**/*.html
+
+# Cache and temp
+*.cache
+geocoding_cache.json
+communes_coordinates.json
+__pycache__/
+.pytest_cache/
+*.egg-info/
+
+# Test files (à déplacer en tests/)
+test/
+test2/
+test3/
+CE/
+mail1
+mail2
+debug_plurivert.py
+test_*.py
+*.eml
+
+# Fichiers temporaires
+*.log
+*.tmp
+*~
+.DS_Store
+Thumbs.db

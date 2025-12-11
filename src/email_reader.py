@@ -997,7 +997,8 @@ class HTMLGenerator:
             email_date_formatted = email_date_formatted.split(' à ')[0]
         
         return f"""            <div class="event-card">
-                <h3>{event['subject']}{tooltip_html}</h3>
+                <h3>{event['subject']}</h3>
+                {tooltip_html}
                 
                 <div class="event-info">
                     <span class="event-info-icon">📅</span>
@@ -1086,6 +1087,7 @@ class HTMLGenerator:
     <div class="map-header">
         <h1>🗺️ Carte Crieur des sorties</h1>
         <p>Crieurs Périgord-Limousin - {len(events_on_map)} annonce(s) localisée(s) sur {len(self.events)} annonce(s) au total</p>
+        <a href="annonces.html" class="map-header-link">📋 Voir les annonces</a>
     </div>
     
     <div class="map-container">

@@ -111,6 +111,9 @@ class FTPUploader:
             print(f"✗ Répertoire non trouvé: {local_dir}")
             return 0, 0
         
+        # Fichiers à exclure de l'upload
+        excluded_files = {'.gitkeep', '.DS_Store', 'Thumbs.db', '.git'}
+        
         try:
             # Crée le répertoire distant s'il n'existe pas
             try:
@@ -121,8 +124,9 @@ class FTPUploader:
             # Change vers le répertoire distant
             self.ftp.cwd(remote_dir)
             
-            # Liste les fichiers locaux
-            files = [f for f in os.listdir(local_dir) if os.path.isfile(os.path.join(local_dir, f))]
+            # Liste les fichiers locaux (en excluant certains fichiers techniques)
+            files = [f for f in os.listdir(local_dir) 
+                    if os.path.isfile(os.path.join(local_dir, f)) and f not in excluded_files]
             
             for filename in files:
                 local_path = os.path.join(local_dir, filename)
@@ -137,10 +141,10 @@ class FTPUploader:
         
         except ftplib.all_errors as e:
             print(f"✗ Erreur FTP: {str(e)}")
-            return 0, len(files)
+            return 0, len(files) if files else 0
         except Exception as e:
             print(f"✗ Erreur: {str(e)}")
-            return 0, len(files)
+            return 0, len(files) if files else 0
         
         return uploaded, failed
     

@@ -9,7 +9,7 @@ Outil pour lire vos emails d'annonces d'événements et les afficher sous forme 
 ### 1. Installez les dépendances
 
 ```bash
-cd /home/sylvain/Documents/crieurs
+cd /home/utilisateur/repertoire/crieurs
 pip install -r requirements.txt
 ```
 
@@ -24,7 +24,7 @@ nano .env
 Remplissez avec vos identifiants:
 
 ```env
-EMAIL_ADDRESS=scregut@free.fr
+EMAIL_ADDRESS=mon@mail.fr
 EMAIL_PASSWORD=votre_mot_de_passe
 IMAP_SERVER=imap.free.fr
 IMAP_PORT=993

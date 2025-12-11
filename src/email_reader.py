@@ -899,13 +899,42 @@ class HTMLGenerator:
         else:
             # Groupe les événements par date de réception
             from collections import defaultdict
+            from datetime import datetime
+            
             events_by_date = defaultdict(list)
+            date_sort_keys = {}  # Pour stocker la clé de tri numérique
+            
             for event in self.events:
                 date_received = event.get('email_date', 'Non spécifiée')
                 events_by_date[date_received].append(event)
+                
+                # Crée une clé de tri numérique (YYYYMMDDHHMMSS) pour un tri correct
+                if date_received != 'Non spécifiée' and date_received not in date_sort_keys:
+                    try:
+                        # Parse le format "10 décembre 2025 à 14:40"
+                        date_str = date_received.split(' à ')[0] if ' à ' in date_received else date_received
+                        time_str = date_received.split(' à ')[1] if ' à ' in date_received else '00:00'
+                        
+                        # Converti les mois français en numéros
+                        mois_fr = {
+                            "janvier": 1, "février": 2, "mars": 3, "avril": 4, "mai": 5, "juin": 6,
+                            "juillet": 7, "août": 8, "septembre": 9, "octobre": 10, "novembre": 11, "décembre": 12
+                        }
+                        
+                        parts = date_str.split()
+                        jour = int(parts[0])
+                        mois = mois_fr.get(parts[1], 1)
+                        annee = int(parts[2])
+                        heures, minutes = map(int, time_str.split(':'))
+                        
+                        # Crée une clé de tri: YYYYMMDDHHMMSS (plus grand = plus récent)
+                        sort_key = f"{annee:04d}{mois:02d}{jour:02d}{heures:02d}{minutes:02d}00"
+                        date_sort_keys[date_received] = sort_key
+                    except:
+                        date_sort_keys[date_received] = "00000000000000"
             
             # Trie les dates en ordre décroissant (plus récentes en premier)
-            sorted_dates = sorted(events_by_date.keys(), reverse=True)
+            sorted_dates = sorted(events_by_date.keys(), key=lambda x: date_sort_keys.get(x, "00000000000000"), reverse=True)
             
             for date in sorted_dates:
                 # Formate la date sans l'heure

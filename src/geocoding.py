@@ -13,13 +13,14 @@ from typing import Optional, Tuple
 class Geocoder:
     """Convertit des noms de lieux en coordonnées GPS"""
     
-    def __init__(self, coordinates_file: str = None, corrections_file: str = None):
+    def __init__(self, coordinates_file: str = None, corrections_file: str = None, lieux_cache_file: str = None):
         """
-        Initialise le géocodeur avec base locale et corrections manuelles
+        Initialise le géocodeur avec base locale, corrections manuelles et cache de lieux
         
         Args:
             coordinates_file: Fichier JSON avec les coordonnées pré-construites
             corrections_file: Fichier JSON avec les corrections manuelles
+            lieux_cache_file: Fichier JSON avec le cache des lieux d'annonces
         """
         # Déterminer les chemins des fichiers si non fournis
         if coordinates_file is None:
@@ -30,8 +31,14 @@ class Geocoder:
             base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
             corrections_file = os.path.join(base_dir, "data", "corrections_geolocalisation.json")
         
+        if lieux_cache_file is None:
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            lieux_cache_file = os.path.join(base_dir, "data", "lieux_coordinates.json")
+        
         self.coordinates_db = self._load_coordinates_db(coordinates_file)
         self.corrections = self._load_corrections(corrections_file)
+        self.lieux_cache_file = lieux_cache_file
+        self.lieux_cache = self._load_lieux_cache(lieux_cache_file)
         self.session = requests.Session()
         self.session.headers.update({'User-Agent': 'CrieursPeriord/1.0'})
     
@@ -52,6 +59,58 @@ class Geocoder:
         except (FileNotFoundError, json.JSONDecodeError):
             return {}
     
+    def _load_lieux_cache(self, lieux_cache_file: str) -> dict:
+        """Charge le cache des lieux d'annonces avec leurs coordonnées"""
+        try:
+            with open(lieux_cache_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                # Exclure les clés spéciales (_comment, _example)
+                return {k: v for k, v in data.items() if not k.startswith('_')}
+        except (FileNotFoundError, json.JSONDecodeError):
+            return {}
+    
+    def _save_lieux_cache(self):
+        """Sauvegarde le cache des lieux dans le fichier JSON"""
+        try:
+            # Charger d'abord pour préserver les commentaires
+            try:
+                with open(self.lieux_cache_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+            except:
+                data = {
+                    "_comment": "Cache de géolocalisation des lieux d'annonces",
+                    "_example": {"Nontron": {"lat": 45.5233, "lon": 0.7667, "source": "manual"}}
+                }
+            
+            # Mettre à jour les lieux (sans overwrite les commentaires)
+            for lieu, coords in self.lieux_cache.items():
+                if not lieu.startswith('_'):
+                    data[lieu] = coords
+            
+            # Écrire le fichier
+            with open(self.lieux_cache_file, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            print(f"⚠ Erreur lors de la sauvegarde du cache: {e}")
+    
+    def _add_to_cache(self, lieu: str, lat: float, lon: float, source: str = "api"):
+        """Ajoute un lieu au cache"""
+        from datetime import date
+        self.lieux_cache[lieu] = {
+            "lat": lat,
+            "lon": lon,
+            "source": source,
+            "date_added": str(date.today())
+        }
+        self._save_lieux_cache()
+    
+    def _get_from_cache(self, lieu: str) -> Optional[Tuple[float, float]]:
+        """Récupère un lieu du cache s'il existe"""
+        if lieu in self.lieux_cache:
+            coords = self.lieux_cache[lieu]
+            return (coords['lat'], coords['lon'])
+        return None
+    
     def geocode(self, location: str) -> Optional[Tuple[float, float, str]]:
         """
         Convertit un nom de lieu en coordonnées GPS
@@ -71,7 +130,14 @@ class Geocoder:
         location_clean = location_clean.replace('\u2019', "'")  # Apostrophe courbe → droite
         location_clean = location_clean.replace('\u2018', "'")  # Guillemet gauche → apostrophe
         
-        # 0. Vérifier les corrections manuelles en premier
+        # 0. Vérifier le cache des lieux d'annonces EN PREMIER
+        cached = self._get_from_cache(location_clean)
+        if cached:
+            lat, lon = cached
+            print(f"✓ {location_clean} → ({lat}, {lon}) [cache local]")
+            return (lat, lon, location_clean)
+        
+        # 1. Vérifier les corrections manuelles
         if location_clean in self.corrections:
             lat, lon, adresse = self.corrections[location_clean]
             print(f"✓ {location_clean} → ({lat}, {lon}) [correction manuelle]")
@@ -157,6 +223,7 @@ class Geocoder:
         Utilise l'API Nominatim d'OpenStreetMap (gratuit) pour géocoder
         Avec fallback progressif : adresse complète → commune seule
         Priorise les résultats dans la Dordogne (département 24)
+        Ajoute les résultats au cache local
         """
         try:
             # Essai 1 : adresse complète en France
@@ -186,6 +253,8 @@ class Geocoder:
                     address = result.get('display_name', location)
                     postal_code = result.get('address', {}).get('postcode', '')
                     print(f"✓ {location} → ({lat}, {lon}) [API - adresse précise]")
+                    # Ajoute au cache
+                    self._add_to_cache(location, lat, lon, source="api")
                     return (lat, lon, address)
             
             # Essai 2 : essaie juste la commune en Dordogne
@@ -209,6 +278,8 @@ class Geocoder:
                         lon = float(result['lon'])
                         address = result.get('display_name', location)
                         print(f"✓ {location} → ({lat}, {lon}) [API - commune Dordogne]")
+                        # Ajoute au cache
+                        self._add_to_cache(location, lat, lon, source="api")
                         return (lat, lon, address)
             
             print(f"✗ {location} introuvable en Dordogne")

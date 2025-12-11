@@ -1,0 +1,256 @@
+{
+  "_comment": "Cache de géolocalisation des lieux d'annonces - Format: {\"lieu\": {\"lat\": 45.123, \"lon\": 0.456, \"source\": \"manual|api\", \"date_added\": \"YYYY-MM-DD\"}}",
+  "_example": {
+    "Nontron": {
+      "lat": 45.5233,
+      "lon": 0.7667,
+      "source": "manual",
+      "date_added": "2025-12-11"
+    }
+  },
+  "Abjat-sur-Bandiat": {
+    "lat": 45.5854222,
+    "lon": 0.757301,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "12 Rue Paul Carreau 24420 Sorges et Ligueux en Périgord": {
+    "lat": 45.3065011,
+    "lon": 0.87267,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "23 Impasse du Chalard 24470 Saint-Saud-Lacoussière": {
+    "lat": 45.5185744,
+    "lon": 0.7923782,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "La Coquille": {
+    "lat": 45.5426008,
+    "lon": 0.9772908,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Thiviers": {
+    "lat": 45.41442,
+    "lon": 0.9194243,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "193 Allée de la Source Froide 24450 Saint-Pierre-de-Frugie": {
+    "lat": 45.5882424,
+    "lon": 0.982098,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Route du Notaire Desmaison 24340 Mareuil en Périgord": {
+    "lat": 45.3922964,
+    "lon": 0.5138780,
+    "source": "moi",
+    "date_added": "2025-12-11"
+  },
+  "2 Place de la Résistance 24470 Saint-Saud-Lacoussière": {
+    "lat": 45.5433284,
+    "lon": 0.8184438,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Saint-Estèphe": {
+    "lat": 45.5925,
+    "lon": 0.6633333,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Montbron": {
+    "lat": 45.3217692,
+    "lon": 0.5886472,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Champs-Romain": {
+    "lat": 45.5319444,
+    "lon": 0.7761111,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Chalais": {
+    "lat": 45.5074252,
+    "lon": 0.926825,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Piégut-Pluviers": {
+    "lat": 45.623611,
+    "lon": 0.690277,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Saint-Jory-de-Chalais": {
+    "lat": 45.4989462,
+    "lon": 0.8997706,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "323 Rue du Bourdon des Pèlerins 24450 Saint-Pierre-de-Frugie": {
+    "lat": 45.571256,
+    "lon": 0.9991743,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Château de Lasteyrie Route de la Fontaine 24340 La Rochebeaucourt-et-Argentine": {
+    "lat": 45.4836853,
+    "lon": 0.3797403,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Grande Rue de la Barre 24470 Saint-Pardoux-la-Rivière": {
+    "lat": 45.4927511,
+    "lon": 0.7465141,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Saint-Jory": {
+    "lat": 45.4989462,
+    "lon": 0.8997706,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Boulevard de Saltgourde 24430 Marsac-sur-l'Isle": {
+    "lat": 45.1989427,
+    "lon": 0.6712787,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Soudat": {
+    "lat": 45.62358,
+    "lon": 0.56386,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "9 Rue Alfrédo Raynaud 24470 Saint-Pardoux-la-Rivière": {
+    "lat": 45.492493,
+    "lon": 0.7449875,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "1 Place place Alfred d'Agard 24300 Nontron": {
+    "lat": 45.5293074,
+    "lon": 0.6622535,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Le Bourg 87440 Marval": {
+    "lat": 45.626990,
+    "lon": 0.800648,
+    "source": "moi",
+    "date_added": "2025-12-11"
+  },
+  "Limoges": {
+    "lat": 44.7583773,
+    "lon": 0.9826392,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "25 Rue D'angoulême 16220 Montbron": {
+    "lat": 45.3217692,
+    "lon": 0.5886472,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Saint-Saud-Lacoussière": {
+    "lat": 45.5436482,
+    "lon": 0.8185259,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Champniers-et-Reilhac": {
+    "lat": 45.6733333,
+    "lon": 0.7319444,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "923 Route du Moulin du Touroulet 24800 Chalais": {
+    "lat": 45.5040333,
+    "lon": 0.9195282,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Marval": {
+    "lat": 45.626990,
+    "lon": 0.800648,
+    "source": "moi",
+    "date_added": "2025-12-11"
+  },
+  "Rue des Alliés 24360 Piégut-Pluviers": {
+    "lat": 45.6247309,
+    "lon": 0.6868878,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Château de Lasteyrie 24340 La Rochebeaucourt-et-Argentine": {
+    "lat": 45.4836853,
+    "lon": 0.3797403,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "2 Place des Droits de l'Homme 24300 Nontron": {
+    "lat": 45.5233701,
+    "lon": 0.659972,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Place des Droits de l'Homme 24300 Nontron": {
+    "lat": 45.5233701,
+    "lon": 0.659972,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "1 Place de l’Église 24300 Nontron": {
+    "lat": 45.5284318,
+    "lon": 0.6660091,
+    "source": "moi",
+    "date_added": "2025-12-11"
+  },  "Place place Alfred d'Agard 24300 Nontron": {
+    "lat": 45.5293074,
+    "lon": 0.6622535,
+    "source": "api",
+    "date_added": "2025-12-11"
+  },
+  "Nexon": {
+    "lat": 45.6788670,
+    "lon": 1.1867820,
+    "source": "moi",
+    "date_added": "2025-12-11"
+  },
+  "SaintMathieu": {
+    "lat": 45.70607116,
+    "lon": 0.7587020,
+    "source": "moi",
+    "date_added": "2025-12-11"
+  },
+  "Place de l'Église 87440 Saint-Mathieu": {
+    "lat": 45.7058631,
+    "lon": 0.7593544,
+    "source": "moi",
+    "date_added": "2025-12-11"
+  },
+  "Les Jarosses 87150 Champagnac-la-Rivière": {
+    "lat": 45.733313949136246,
+    "lon": 0.9341436443754348,
+    "source": "moi",
+    "date_added": "2025-12-11"
+  },
+  "Salle polyvalente - 24340 Rudeau-Ladosse": {
+    "lat": 45.482884585002274,
+    "lon": 0.5499747426279683,
+    "source": "moi",
+    "date_added": "2025-12-11"
+  },
+  "42 Route des Etangs 87500 Ladignac-le-Long": {
+    "lat": 45.62001537914359,
+    "lon": 1.1251355264374017,
+    "source": "moi",
+    "date_added": "2025-12-11"
+  }
+}

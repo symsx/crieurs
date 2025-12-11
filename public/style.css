@@ -27,30 +27,43 @@ body {
     font-family: 'Ysabeau Office', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     background: #f5f5f5;
     min-height: 100vh;
-    padding: 10px;
+    padding: 0;
     color: var(--text-primary);
 }
 
 @media (min-width: 768px) {
     body {
-        padding: 20px;
+        padding: 0;
     }
 }
 
 .container {
     max-width: 1600px;
     margin: 0 auto;
+    padding: 20px;
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 20px;
+    }
 }
 
 header {
     text-align: center;
-    background: linear-gradient(135deg, var(--gco-green) 0%, var(--gco-green-dark) 100%);
+    background: #8ba503;
     color: white;
     margin-bottom: 40px;
     position: relative;
     padding: 40px 20px;
-    border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    header {
+        margin-bottom: 40px;
+    }
 }
 
 header h1 {
@@ -225,7 +238,7 @@ header p {
 }
 
 .event-card h3 {
-    color: var(--gco-green);
+    color: #000;
     margin-bottom: 15px;
     font-size: 1.2em;
     font-weight: 700;
@@ -234,10 +247,48 @@ header p {
     line-height: 1.4;
     word-break: break-word;
     z-index: 2;
+    cursor: help;
 }
 
 .event-card h3:hover {
-    color: var(--gco-green-dark);
+    color: #000;
+}
+
+.event-description-tooltip {
+    display: none;
+    position: fixed;
+    background: white;
+    border: 2px solid var(--gco-green);
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    font-size: 0.95em;
+    line-height: 1.6;
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    z-index: 10000;
+    max-width: 500px;
+    max-height: 400px;
+    overflow-y: auto;
+    animation: popupSlideIn 0.2s ease;
+}
+
+@keyframes popupSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.event-card h3:hover ~ .event-description-tooltip,
+.event-card:hover .event-description-tooltip,
+.event-description-tooltip:hover {
+    display: block;
 }
 
 
@@ -348,15 +399,10 @@ header p {
     box-shadow: 0 4px 12px rgba(244, 196, 48, 0.3);
 }
 
-.map-link::before {
-    content: "🗺️";
-    font-size: 1.1em;
-}
-
 .date-section {
     margin-bottom: 30px;
     padding-bottom: 20px;
-    border-bottom: 2px solid var(--gco-border);
+    border-bottom: 4px solid #f3bb00;
 }
 
 .date-section-title {

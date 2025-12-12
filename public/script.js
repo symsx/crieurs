@@ -1,3 +1,23 @@
+// Gestion du menu de navigation supérieur
+function initTopNavigation() {
+    const currentPage = window.currentPage || 'sorties';
+    const navLinks = document.querySelectorAll('.top-navigation .nav-link');
+    
+    navLinks.forEach(link => {
+        link.classList.remove('active-if-sorties', 'active-if-libre');
+        
+        const href = link.getAttribute('href');
+        if ((currentPage === 'sorties' && href.includes('annonces.html')) ||
+            (currentPage === 'libre' && href.includes('expression_libre.html'))) {
+            if (currentPage === 'sorties') {
+                link.classList.add('active-if-sorties');
+            } else {
+                link.classList.add('active-if-libre');
+            }
+        }
+    });
+}
+
 // Gestion du menu burger
 const burgerMenu = document.querySelector('.burger-menu');
 const mobileMenu = document.querySelector('.mobile-menu');
@@ -17,6 +37,9 @@ if (burgerMenu && mobileMenu) {
         });
     });
 }
+
+// Initialise la navigation au chargement
+document.addEventListener('DOMContentLoaded', initTopNavigation);
 
 // Gestion des tooltips de description
 const globalTooltip = document.createElement('div');

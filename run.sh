@@ -17,7 +17,8 @@ if [ ! -f .env ]; then
     exit 1
 fi
 
-# Lance le programme
+# Lance le programme (nouvelle version avec deux sources)
 cd src
-python3 main.py
+python3 main_v2.py
 cd ..
+

@@ -849,6 +849,7 @@ class HTMLGenerator:
     def __init__(self, title: str = "Annonces d'événements"):
         self.title = title
         self.events = []
+        self.source_type = "Sorties"  # "Sorties" ou "Expression Libre"
     
     def add_events(self, events: List[Dict]):
         """Ajoute des événements à afficher"""
@@ -857,6 +858,25 @@ class HTMLGenerator:
     def generate(self, output_file: str = "annonces.html"):
         """Génère la page HTML"""
         from datetime import datetime
+        
+        # Détermine les liens du menu selon le type
+        if self.source_type == "Expression Libre":
+            menu_annonces = "annonces.html"
+            menu_map = "carte_expression_libre.html"
+            header_title = "📢 Expression Libre Crieur"
+            map_text = "🗺️ Carte des contributions"
+        else:
+            menu_annonces = "annonces.html"
+            menu_map = "carte_des_annonces.html"
+            header_title = "📅 Annonces Crieur"
+            map_text = "🗺️ Carte des sorties"
+        
+        # Menu de navigation entre sorties et expression libre
+        navigation_menu = """    <div class="top-navigation">
+        <a href="annonces.html" class="nav-link active-if-sorties">📋 Sorties</a>
+        <a href="expression_libre.html" class="nav-link active-if-libre">📢 Expression Libre</a>
+    </div>
+"""
         
         html_content = f"""<!DOCTYPE html>
 <html lang="fr">
@@ -868,8 +888,14 @@ class HTMLGenerator:
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ysabeau+Office:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../public/style.css">
+    <script>
+        // Initialise le menu de navigation au chargement
+        window.currentPage = '{"sorties" if self.source_type != "Expression Libre" else "libre"}';
+    </script>
 </head>
 <body>
+    {navigation_menu}
+    
     <button class="burger-menu" aria-label="Menu">
         <span></span>
         <span></span>
@@ -877,16 +903,19 @@ class HTMLGenerator:
     </button>
     
     <div class="mobile-menu">
-        <a href="annonces.html">📋 Annonces</a>
-        <a href="carte_des_annonces.html">🗺️ Carte des sorties</a>
+        <a href="annonces.html">📋 Sorties</a>
+        <a href="expression_libre.html">📢 Expression Libre</a>
+        <div style="border-top: 1px solid #ccc; margin: 10px 0;"></div>
+        <a href="{menu_map}">{map_text}</a>
     </div>
     
     <div class="container">
         <header>
-            <h1>📅 {self.title}</h1>
-            <a href="carte_des_annonces.html" class="map-link">🗺️ Carte des sorties</a>
+            <h1>{header_title}</h1>
+            <a href="{menu_map}" class="map-link">{map_text}</a>
             <p>Générée le {datetime.now().strftime('%d/%m/%Y à %H:%M')}</p>
         </header>
+
         
         <div class="events-grid">
 """

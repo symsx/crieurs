@@ -862,9 +862,9 @@ class HTMLGenerator:
         # Détermine les liens du menu selon le type
         if self.source_type == "Expression Libre":
             menu_annonces = "annonces.html"
-            menu_map = "carte_expression_libre.html"
+            menu_map = ""  # Pas de carte pour expression libre
             header_title = "📢 Expression Libre Crieur"
-            map_text = "🗺️ Carte des contributions"
+            map_text = ""
         else:
             menu_annonces = "annonces.html"
             menu_map = "carte_des_annonces.html"
@@ -906,13 +906,13 @@ class HTMLGenerator:
         <a href="annonces.html">📋 Sorties</a>
         <a href="expression_libre.html">📢 Expression Libre</a>
         <div style="border-top: 1px solid #ccc; margin: 10px 0;"></div>
-        <a href="{menu_map}">{map_text}</a>
+        {f'<a href="{menu_map}"">{map_text}</a>' if menu_map else ''}
     </div>
     
     <div class="container">
         <header>
             <h1>{header_title}</h1>
-            <a href="{menu_map}" class="map-link">{map_text}</a>
+            {f'<a href="{menu_map}" class="map-link">{map_text}</a>' if menu_map else ''}
             <p>Générée le {datetime.now().strftime('%d/%m/%Y à %H:%M')}</p>
         </header>
 

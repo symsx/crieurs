@@ -46,7 +46,7 @@
   },
   "Route du Notaire Desmaison 24340 Mareuil en Périgord": {
     "lat": 45.3922964,
-    "lon": 0.5138780,
+    "lon": 0.513878,
     "source": "moi",
     "date_added": "2025-12-11"
   },
@@ -141,7 +141,7 @@
     "date_added": "2025-12-11"
   },
   "Le Bourg 87440 Marval": {
-    "lat": 45.626990,
+    "lat": 45.62699,
     "lon": 0.800648,
     "source": "moi",
     "date_added": "2025-12-11"
@@ -177,7 +177,7 @@
     "date_added": "2025-12-11"
   },
   "Marval": {
-    "lat": 45.626990,
+    "lat": 45.62699,
     "lon": 0.800648,
     "source": "moi",
     "date_added": "2025-12-11"
@@ -211,21 +211,22 @@
     "lon": 0.6660091,
     "source": "moi",
     "date_added": "2025-12-11"
-  },  "Place place Alfred d'Agard 24300 Nontron": {
+  },
+  "Place place Alfred d'Agard 24300 Nontron": {
     "lat": 45.5293074,
     "lon": 0.6622535,
     "source": "api",
     "date_added": "2025-12-11"
   },
   "Nexon": {
-    "lat": 45.6788670,
-    "lon": 1.1867820,
+    "lat": 45.678867,
+    "lon": 1.186782,
     "source": "moi",
     "date_added": "2025-12-11"
   },
   "SaintMathieu": {
     "lat": 45.70607116,
-    "lon": 0.7587020,
+    "lon": 0.758702,
     "source": "moi",
     "date_added": "2025-12-11"
   },
@@ -252,5 +253,29 @@
     "lon": 1.1251355264374017,
     "source": "moi",
     "date_added": "2025-12-11"
+  },
+  "Champniers-Reilhac": {
+    "lat": 45.6733333,
+    "lon": 0.7319444,
+    "source": "api",
+    "date_added": "2025-12-12"
+  },
+  "Savignac-de-Nontron": {
+    "lat": 45.5419914,
+    "lon": 0.7224473,
+    "source": "api",
+    "date_added": "2025-12-12"
+  },
+  "Bussière-Badil": {
+    "lat": 45.6520666,
+    "lon": 0.6051378,
+    "source": "api",
+    "date_added": "2025-12-12"
+  },
+  "Miallet": {
+    "lat": 45.550518,
+    "lon": 0.9045666,
+    "source": "api",
+    "date_added": "2025-12-12"
   }
 }

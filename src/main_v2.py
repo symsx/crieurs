@@ -322,12 +322,21 @@ def extract_libre_expression_events(email_content: str) -> list:
         lines = part.split('\n', 1)
         message_content = lines[1] if len(lines) > 1 else ""
         
-        # Trouve le titre et email correspondants du sommaire
+        # Trouve le titre, email et lieu correspondants du sommaire
         titre = ""
         email_auteur = ""
+        lieu = ""
         if idx <= len(sommaire_events):
             titre = sommaire_events[idx - 1]['titre']
             email_auteur = sommaire_events[idx - 1]['email']
+            # Extrait le lieu : tous les types sauf le premier (qui est souvent le type d'annonce)
+            types = sommaire_events[idx - 1]['types']
+            if len(types) > 1:
+                # Prend le dernier type comme lieu (généralement le dernier [xxxxx] du sommaire)
+                lieu = types[-1]
+            elif len(types) == 1 and types[0] not in ['crieur-libre-expression', 'crieur-des-sorties']:
+                # Si un seul type et ce n'est pas le type d'annonce, c'est le lieu
+                lieu = types[0]
         
         # Extrait le texte entre les tirets
         # Début: une série de tirets (au moins 10)
@@ -361,9 +370,9 @@ def extract_libre_expression_events(email_content: str) -> list:
                 'whatsapp': whatsapp,
                 'mailcontact': mailcontact,
                 'http_links': http_links,  # ✅ Nouveaux liens HTTP
-                # Pas de date, lieu, ou descriptif structuré pour expression libre
+                # Lieu extrait du sommaire pour expression libre
                 'date_heure_sommaire': '',
-                'lieu_detail': '',
+                'lieu_detail': lieu,  # ✅ Lieu du sommaire
                 'quand_detail': '',
                 'organisateur': '',
                 'descriptif': '',
@@ -497,7 +506,7 @@ def process_annonces_source(email: str, password: str, imap_server: str, imap_po
                 event_html = {
                     'subject': event['titre'],
                     'date': '',  # Pas de date pour expression libre
-                    'location': '',  # Pas de lieu pour expression libre
+                    'location': event.get('lieu_detail', ''),  # ✅ Lieu du sommaire si présent
                     'description': event.get('texte_libre', ''),  # Texte libre à la place de descriptif
                     'links': http_links if http_links else None,  # ✅ Utilise les liens HTTP
                     'telephone': event['telephone'],

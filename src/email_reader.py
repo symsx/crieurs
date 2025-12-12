@@ -1023,6 +1023,12 @@ class HTMLGenerator:
             # Génère les infos de contact si présentes
             contact_html = ""
             
+            # Lieu
+            location_html = ""
+            if event.get('location'):
+                location = event['location']
+                location_html = f'<div class="event-info"><span class="event-info-icon">📍</span><div class="event-info-content"><div class="event-info-label">Lieu</div><div class="event-info-value">{location}</div></div></div>\n'
+            
             # Téléphone
             if event.get('telephone'):
                 phone = event['telephone']
@@ -1050,6 +1056,8 @@ class HTMLGenerator:
                 <div class="event-libre-text">
                     {description}
                 </div>
+                
+                {location_html}
                 
                 {links_html}
                 

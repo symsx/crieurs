@@ -401,6 +401,8 @@ def process_annonces_source(email: str, password: str, imap_server: str, imap_po
         
         generator = HTMLGenerator(source['title'])
         generator.add_events(events_html_format)
+        # Définit le type de source pour le menu de navigation
+        generator.source_type = source['name']  # 'Sorties' ou 'Expression Libre'
         
         # Chemins de sortie
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

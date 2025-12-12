@@ -890,7 +890,7 @@ class HTMLGenerator:
     <link rel="stylesheet" href="../public/style.css">
     <script>
         // Initialise le menu de navigation au chargement
-        window.currentPage = '{"sorties" if self.source_type != "Expression Libre" else "libre"}';
+        window.currentPage = '{"libre" if self.source_type == "Expression Libre" else "sorties"}';
     </script>
 </head>
 <body>

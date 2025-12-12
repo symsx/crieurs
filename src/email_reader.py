@@ -906,7 +906,7 @@ class HTMLGenerator:
         <a href="annonces.html">📋 Sorties</a>
         <a href="expression_libre.html">📢 Expression Libre</a>
         <div style="border-top: 1px solid #ccc; margin: 10px 0;"></div>
-        {f'<a href="{menu_map}"">{map_text}</a>' if menu_map else ''}
+        {f'<a href="{menu_map}">{map_text}</a>' if menu_map else ''}
     </div>
     
     <div class="container">

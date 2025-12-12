@@ -21,24 +21,48 @@ if (burgerMenu && mobileMenu) {
 // Gestion des tooltips de description
 const globalTooltip = document.createElement('div');
 globalTooltip.id = 'global-tooltip';
-globalTooltip.style.cssText = 'display: none; position: fixed; background: rgba(0, 0, 0, 0.95); color: white; padding: 15px; border-radius: 8px; font-size: 0.85em; line-height: 1.5; max-width: min(90vw, 700px); z-index: 10000; white-space: normal; word-wrap: break-word; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6); border: 2px solid rgba(102, 126, 234, 0.5); pointer-events: none;';
+globalTooltip.style.cssText = 'display: none; position: fixed; background: white; color: #333; padding: 20px; border-radius: 12px; font-size: 0.95em; line-height: 1.6; max-height: 400px; z-index: 10000; white-space: pre-wrap; word-wrap: break-word; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); border-left: 5px solid #6b7d1e; overflow-y: auto; box-sizing: border-box;';
 document.body.appendChild(globalTooltip);
 
+let currentCard = null;
+let hideTimeout = null;
+
+function hideTooltip() {
+    globalTooltip.style.display = 'none';
+    currentCard = null;
+}
+
+function cancelHideTimeout() {
+    if (hideTimeout) {
+        clearTimeout(hideTimeout);
+        hideTimeout = null;
+    }
+}
+
+function scheduleHideTooltip() {
+    cancelHideTimeout();
+    hideTimeout = setTimeout(hideTooltip, 200);
+}
+
 // Gère le positionnement des tooltips en fixed
-document.querySelectorAll('.event-card h3').forEach(h3 => {
-    const tooltip = h3.querySelector('.event-description-tooltip');
-    if (tooltip) {
-        h3.addEventListener('mouseenter', () => {
-            const rect = h3.getBoundingClientRect();
+document.querySelectorAll('.event-card').forEach(card => {
+    const h3 = card.querySelector('h3');
+    const tooltip = card.querySelector('.event-description-tooltip');
+    
+    if (h3 && tooltip) {
+        function showTooltip() {
+            cancelHideTimeout();
+            const cardRect = card.getBoundingClientRect();
+            const h3Rect = h3.getBoundingClientRect();
             
             // Copie le contenu de la description dans le tooltip global
             globalTooltip.innerHTML = tooltip.innerHTML;
             globalTooltip.style.display = 'block';
+            globalTooltip.style.width = cardRect.width + 'px';
             
-            // Pour position: fixed, utiliser les coordonnées du viewport SANS ajouter scrollY
-            // car getBoundingClientRect() retourne déjà les coordonnées de l'écran
-            let top = rect.bottom + 8;  // 8px sous le titre
-            let left = rect.left;
+            // Positionne la popup sous le h3, alignée avec la carte
+            let top = h3Rect.bottom + 8;  // 8px sous le titre
+            let left = cardRect.left;
             
             // Applique le positionnement initial
             globalTooltip.style.top = top + 'px';
@@ -47,27 +71,50 @@ document.querySelectorAll('.event-card h3').forEach(h3 => {
             // Récupère la taille du tooltip pour ajustements
             const tooltipRect = globalTooltip.getBoundingClientRect();
             
-            // Vérifie position horizontale : si dépasse à droite, recentrer
-            if (left + tooltipRect.width > window.innerWidth - 10) {
-                left = window.innerWidth - tooltipRect.width - 10;
-            }
-            // Vérifie qu'on ne dépasse pas à gauche
-            if (left < 10) {
-                left = 10;
-            }
-            
             // Vérifie position verticale : si dépasse en bas, afficher au-dessus
             if (top + tooltipRect.height > window.innerHeight - 10) {
-                top = rect.top - tooltipRect.height - 8;  // 8px au-dessus du titre
+                top = h3Rect.top - tooltipRect.height - 8;  // 8px au-dessus du titre
             }
             
             // Applique les positions ajustées
             globalTooltip.style.top = top + 'px';
             globalTooltip.style.left = left + 'px';
+        }
+        
+        // Ouverture au survol du h3
+        h3.addEventListener('mouseenter', () => {
+            currentCard = card;
+            showTooltip();
         });
         
-        h3.addEventListener('mouseleave', () => {
-            globalTooltip.style.display = 'none';
+        // Début de la minuterie de fermeture quand on quitte la carte
+        card.addEventListener('mouseleave', () => {
+            if (currentCard === card) {
+                scheduleHideTooltip();
+            }
         });
+        
+        // Annule la minuterie si on rentre dans la carte
+        card.addEventListener('mouseenter', () => {
+            cancelHideTimeout();
+        });
+        
+        // Repositionne la popup si on bouge la souris dans la carte
+        card.addEventListener('mousemove', () => {
+            if (globalTooltip.style.display === 'block' && currentCard === card) {
+                showTooltip();
+            }
+        });
+    }
+});
+
+// Événements pour la popup elle-même
+globalTooltip.addEventListener('mouseenter', () => {
+    cancelHideTimeout();
+});
+
+globalTooltip.addEventListener('mouseleave', () => {
+    if (currentCard) {
+        scheduleHideTooltip();
     }
 });

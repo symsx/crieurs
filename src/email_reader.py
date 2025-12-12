@@ -998,63 +998,110 @@ class HTMLGenerator:
     
     def _generate_event_card(self, event: Dict) -> str:
         """Génère la carte HTML d'un événement"""
-        # Génère les liens HTML s'il y en a
-        links_html = ""
-        if event.get('links'):
-            links_html = '<div class="event-info">\n'
-            links_html += '                    <span class="event-info-icon">🔗</span>\n'
-            links_html += '                    <div class="event-info-content">\n'
-            links_html += '                        <div class="event-info-label">Liens</div>\n'
-            for link in event['links']:
-                # Pour les liens wp-content, affiche "pièce jointe"
-                if '/wp-content/' in link:
-                    link_text = '📎 Pièce jointe'
-                # Pour les liens agenda, affiche "agenda"
-                elif 'agenda-des-crieurs' in link:
-                    link_text = 'agenda'
-                else:
-                    # Pour les autres liens, extrait le domaine pour l'affichage
-                    link_text = link.replace('https://', '').replace('http://', '').split('/')[0]
-                links_html += f'                        <div class="event-info-value"><a href="{link}" target="_blank" rel="noopener noreferrer">{link_text}</a></div>\n'
-            links_html += '                    </div>\n'
-            links_html += '                </div>\n'
+        # Vérifie si c'est un événement d'expression libre
+        is_libre_expression = event.get('is_libre_expression', False)
         
-        # Génère le tooltip de description s'il y a du contenu
-        description = event.get('description', '').replace('\n', '<br>')
-        tooltip_html = ""
-        if description:
-            tooltip_html = f'<div class="event-description-tooltip">{description}</div>'
+        if is_libre_expression:
+            # Template simplifié pour expression libre (pas de popup, pas de date/lieu)
+            # Génère le HTML pour le texte libre (à la place de la tooltip popup)
+            description = event.get('description', '').replace('\n', '<br>')
+            
+            # Génère les infos de contact si présentes
+            contact_html = ""
+            
+            # Téléphone
+            if event.get('telephone'):
+                phone = event['telephone']
+                contact_html += f'<div class="event-info"><span class="event-info-icon">📞</span><div class="event-info-content"><div class="event-info-label">Téléphone</div><div class="event-info-value"><a href="tel:{phone}">{phone}</a></div></div></div>\n'
+            
+            # WhatsApp
+            if event.get('whatsapp'):
+                whatsapp = event['whatsapp']
+                contact_html += f'<div class="event-info"><span class="event-info-icon">💬</span><div class="event-info-content"><div class="event-info-label">WhatsApp</div><div class="event-info-value"><a href="{whatsapp}" target="_blank" rel="noopener noreferrer">Groupe WhatsApp</a></div></div></div>\n'
+            
+            # Mail contact
+            if event.get('mailcontact'):
+                mailcontact = event['mailcontact']
+                contact_html += f'<div class="event-info"><span class="event-info-icon">✉️</span><div class="event-info-content"><div class="event-info-label">Mail contact</div><div class="event-info-value"><a href="mailto:{mailcontact}" style="color: #667eea; text-decoration: none;">{mailcontact}</a></div></div></div>\n'
+            
+            # Email de l'organisateur
+            organizer_email_html = ""
+            if event.get('organizer_email'):
+                organizer_email = event['organizer_email']
+                organizer_email_html = f'<div class="event-info"><span class="event-info-icon">📧</span><div class="event-info-content"><div class="event-info-label">Auteur</div><div class="event-info-value"><a href="mailto:{organizer_email}" style="color: #667eea; text-decoration: none;">{organizer_email}</a></div></div></div>\n'
+            
+            return f"""            <div class="event-card event-card-libre">
+                <h3>{event['subject']}</h3>
+                
+                <div class="event-libre-text">
+                    {description}
+                </div>
+                
+                {contact_html}
+                
+                {organizer_email_html}
+            </div>
+"""
         
-        # Génère le HTML pour le téléphone s'il y a
-        phone_html = ""
-        if event.get('telephone'):
-            phone = event['telephone']
-            phone_html = f'<div class="event-info"><span class="event-info-icon">📞</span><div class="event-info-content"><div class="event-info-label">Téléphone</div><div class="event-info-value"><a href="tel:{phone}">{phone}</a></div></div></div>'
-        
-        # Génère le HTML pour WhatsApp s'il y a
-        whatsapp_html = ""
-        if event.get('whatsapp'):
-            whatsapp = event['whatsapp']
-            whatsapp_html = f'<div class="event-info"><span class="event-info-icon">💬</span><div class="event-info-content"><div class="event-info-label">WhatsApp</div><div class="event-info-value"><a href="{whatsapp}" target="_blank" rel="noopener noreferrer">Groupe WhatsApp</a></div></div></div>'
-        
-        # Génère le HTML pour mail contact s'il y a
-        mailcontact_html = ""
-        if event.get('mailcontact'):
-            mailcontact = event['mailcontact']
-            mailcontact_html = f'<div class="event-info"><span class="event-info-icon">✉️</span><div class="event-info-content"><div class="event-info-label">Mail contact</div><div class="event-info-value"><a href="mailto:{mailcontact}" style="color: #667eea; text-decoration: none;">{mailcontact}</a></div></div></div>'
-        
-        # Génère le HTML pour l'email de l'organisateur
-        organizer_email_html = ""
-        if event.get('organizer_email'):
-            organizer_email = event['organizer_email']
-            organizer_email_html = f'<div class="event-info"><span class="event-info-icon">📧</span><div class="event-info-content"><div class="event-info-label">Organisateur</div><div class="event-info-value"><a href="mailto:{organizer_email}" style="color: #667eea; text-decoration: none;">{organizer_email}</a></div></div></div>'
-        
-        # Formate la date de réception (sans heure, format: "10 décembre 2025")
-        email_date_formatted = event.get('email_date', '')
-        if ' à ' in email_date_formatted:
-            email_date_formatted = email_date_formatted.split(' à ')[0]
-        
-        return f"""            <div class="event-card">
+        else:
+            # Template standard pour sorties (avec popup, date, lieu)
+            # Génère les liens HTML s'il y en a
+            links_html = ""
+            if event.get('links'):
+                links_html = '<div class="event-info">\n'
+                links_html += '                    <span class="event-info-icon">🔗</span>\n'
+                links_html += '                    <div class="event-info-content">\n'
+                links_html += '                        <div class="event-info-label">Liens</div>\n'
+                for link in event['links']:
+                    # Pour les liens wp-content, affiche "pièce jointe"
+                    if '/wp-content/' in link:
+                        link_text = '📎 Pièce jointe'
+                    # Pour les liens agenda, affiche "agenda"
+                    elif 'agenda-des-crieurs' in link:
+                        link_text = 'agenda'
+                    else:
+                        # Pour les autres liens, extrait le domaine pour l'affichage
+                        link_text = link.replace('https://', '').replace('http://', '').split('/')[0]
+                    links_html += f'                        <div class="event-info-value"><a href="{link}" target="_blank" rel="noopener noreferrer">{link_text}</a></div>\n'
+                links_html += '                    </div>\n'
+                links_html += '                </div>\n'
+            
+            # Génère le tooltip de description s'il y a du contenu
+            description = event.get('description', '').replace('\n', '<br>')
+            tooltip_html = ""
+            if description:
+                tooltip_html = f'<div class="event-description-tooltip">{description}</div>'
+            
+            # Génère le HTML pour le téléphone s'il y a
+            phone_html = ""
+            if event.get('telephone'):
+                phone = event['telephone']
+                phone_html = f'<div class="event-info"><span class="event-info-icon">📞</span><div class="event-info-content"><div class="event-info-label">Téléphone</div><div class="event-info-value"><a href="tel:{phone}">{phone}</a></div></div></div>'
+            
+            # Génère le HTML pour WhatsApp s'il y a
+            whatsapp_html = ""
+            if event.get('whatsapp'):
+                whatsapp = event['whatsapp']
+                whatsapp_html = f'<div class="event-info"><span class="event-info-icon">💬</span><div class="event-info-content"><div class="event-info-label">WhatsApp</div><div class="event-info-value"><a href="{whatsapp}" target="_blank" rel="noopener noreferrer">Groupe WhatsApp</a></div></div></div>'
+            
+            # Génère le HTML pour mail contact s'il y a
+            mailcontact_html = ""
+            if event.get('mailcontact'):
+                mailcontact = event['mailcontact']
+                mailcontact_html = f'<div class="event-info"><span class="event-info-icon">✉️</span><div class="event-info-content"><div class="event-info-label">Mail contact</div><div class="event-info-value"><a href="mailto:{mailcontact}" style="color: #667eea; text-decoration: none;">{mailcontact}</a></div></div></div>'
+            
+            # Génère le HTML pour l'email de l'organisateur
+            organizer_email_html = ""
+            if event.get('organizer_email'):
+                organizer_email = event['organizer_email']
+                organizer_email_html = f'<div class="event-info"><span class="event-info-icon">📧</span><div class="event-info-content"><div class="event-info-label">Organisateur</div><div class="event-info-value"><a href="mailto:{organizer_email}" style="color: #667eea; text-decoration: none;">{organizer_email}</a></div></div></div>'
+            
+            # Formate la date de réception (sans heure, format: "10 décembre 2025")
+            email_date_formatted = event.get('email_date', '')
+            if ' à ' in email_date_formatted:
+                email_date_formatted = email_date_formatted.split(' à ')[0]
+            
+            return f"""            <div class="event-card">
                 <h3>{event['subject']}</h3>
                 {tooltip_html}
                 
@@ -1085,6 +1132,7 @@ class HTMLGenerator:
                 {organizer_email_html}
             </div>
 """
+
     
     def generate_map_html(self, output_file: str = "carte_des_annonces.html") -> str:
         """

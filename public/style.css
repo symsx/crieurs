@@ -897,3 +897,29 @@ footer a:hover {
         border: 1px solid var(--gco-border);
     }
 }
+
+/* Styles pour les cartes d'expression libre */
+.event-card-libre {
+    border-left-color: var(--gco-gold);
+}
+
+.event-card-libre:hover {
+    border-left-color: var(--gco-green);
+}
+
+.event-libre-text {
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin: 15px 0;
+    padding: 15px;
+    background: var(--bg-light);
+    border-radius: 8px;
+    word-break: break-word;
+    font-size: 0.95em;
+}
+
+.event-libre-text br {
+    display: block;
+    content: "";
+    margin: 5px 0;
+}

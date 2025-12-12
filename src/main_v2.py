@@ -281,6 +281,85 @@ def consolidate_events(sommaire_events: list, messages: list) -> list:
     
     return consolidated
 
+
+def extract_libre_expression_events(email_content: str) -> list:
+    """
+    Extrait les événements d'expression libre depuis le contenu email brut.
+    
+    Format attendu pour expression libre:
+    - Texte entre lignes de tirets
+    - Pas de structure Quand/Où/Descriptif
+    - Pas de date ni lieu structurés
+    - Texte libre entre deux séries de tirets
+    """
+    events = []
+    
+    # Extrait le sommaire pour obtenir les titres et emails
+    sommaire = extract_sommaire(email_content)
+    if not sommaire:
+        return events
+    
+    sommaire_events = parse_events_from_sommaire(sommaire)
+    
+    # Extrait les messages individuels
+    parts = email_content.split('Message-ID: ')
+    
+    for idx, part in enumerate(parts[1:], 1):
+        lines = part.split('\n', 1)
+        message_content = lines[1] if len(lines) > 1 else ""
+        
+        # Trouve le titre et email correspondants du sommaire
+        titre = ""
+        email_auteur = ""
+        if idx <= len(sommaire_events):
+            titre = sommaire_events[idx - 1]['titre']
+            email_auteur = sommaire_events[idx - 1]['email']
+        
+        # Extrait le texte entre les tirets
+        # Début: une série de tirets (au moins 10)
+        # Fin: "-------------------------" (25 tirets)
+        texte_match = re.search(
+            r'-{10,}\s*\n+(.*?)\n+\-{25,}',
+            message_content,
+            re.DOTALL
+        )
+        
+        if texte_match:
+            texte_brut = texte_match.group(1).strip()
+            
+            # Nettoie le texte : enlève le titre au début s'il est présent
+            # Le titre est souvent suivi de tirets "======..."
+            texte_brut = re.sub(r'^[^=]*=+\s*\n+', '', texte_brut, flags=re.DOTALL)
+            
+            # Extrait les infos de contact du texte
+            phone = extract_phone_number(texte_brut)
+            whatsapp = extract_whatsapp_link(texte_brut)
+            mailcontact = extract_second_email(texte_brut)
+            
+            # Crée l'événement simplifié pour expression libre
+            event = {
+                'numero': idx,
+                'titre': titre,
+                'mailorga': email_auteur,
+                'texte_libre': clean_text(texte_brut),
+                'telephone': phone,
+                'whatsapp': whatsapp,
+                'mailcontact': mailcontact,
+                # Pas de date, lieu, ou descriptif structuré pour expression libre
+                'date_heure_sommaire': '',
+                'lieu_detail': '',
+                'quand_detail': '',
+                'organisateur': '',
+                'descriptif': '',
+                'lien': '',
+                'agenda': '',
+                'pièces_jointes': [],
+                'types': []
+            }
+            events.append(event)
+    
+    return events
+
 # ==================== END EXTRACTION FUNCTIONS ====================
 
 
@@ -323,28 +402,45 @@ def process_annonces_source(email: str, password: str, imap_server: str, imap_po
         print("\n🔍 Extraction consolidée des événements...")
         all_events_consolidated = []
         
-        for email_msg in emails:
-            email_content = email_msg['body']
-            email_date = email_msg['date']
-            
-            # Extrait sommaire et messages
-            sommaire = extract_sommaire(email_content)
-            if not sommaire:
-                continue
-            
-            events_sommaire = parse_events_from_sommaire(sommaire)
-            messages = extract_messages(email_content)
-            
-            # Consolide les événements
-            events_consolidated = consolidate_events(events_sommaire, messages)
-            
-            # Ajoute la date de l'email à chaque événement
-            for event in events_consolidated:
-                event['email_date'] = email_date
-            
-            all_events_consolidated.extend(events_consolidated)
+        # Utilise la logique d'extraction appropriée selon la source
+        if source['filter'] == 'crieur-libre-expression':
+            # Expression libre: texte libre entre tirets
+            for email_msg in emails:
+                email_content = email_msg['body']
+                email_date = email_msg['date']
+                
+                events = extract_libre_expression_events(email_content)
+                
+                # Ajoute la date de l'email à chaque événement
+                for event in events:
+                    event['email_date'] = email_date
+                
+                all_events_consolidated.extend(events)
+        else:
+            # Sorties: extraction sommaire + messages structurés
+            for email_msg in emails:
+                email_content = email_msg['body']
+                email_date = email_msg['date']
+                
+                # Extrait sommaire et messages
+                sommaire = extract_sommaire(email_content)
+                if not sommaire:
+                    continue
+                
+                events_sommaire = parse_events_from_sommaire(sommaire)
+                messages = extract_messages(email_content)
+                
+                # Consolide les événements
+                events_consolidated = consolidate_events(events_sommaire, messages)
+                
+                # Ajoute la date de l'email à chaque événement
+                for event in events_consolidated:
+                    event['email_date'] = email_date
+                
+                all_events_consolidated.extend(events_consolidated)
         
         print(f"✓ {len(all_events_consolidated)} événement(s) extrait(s)")
+
         
         if not all_events_consolidated:
             print(f"⚠️  Aucun événement extrait")
@@ -378,25 +474,44 @@ def process_annonces_source(email: str, password: str, imap_server: str, imap_po
         # Convertit au format HTMLGenerator
         events_html_format = []
         for event in all_events_consolidated:
-            links = []
-            if event['lien']:
-                links.append(event['lien'])
-            if event['agenda']:
-                links.append(event['agenda'])
-            links.extend(event['pièces_jointes'])
-            
-            event_html = {
-                'subject': event['titre'],
-                'date': event['date_heure_sommaire'],
-                'location': event['lieu_detail'],
-                'description': event['descriptif'],
-                'links': links if links else None,
-                'telephone': event['telephone'],
-                'whatsapp': event['whatsapp'],
-                'mailcontact': event['mailcontact'],
-                'email_date': event.get('email_date', 'Non spécifiée'),
-                'organizer_email': event['mailorga']
-            }
+            if source['filter'] == 'crieur-libre-expression':
+                # Expression libre: structure simplifiée
+                event_html = {
+                    'subject': event['titre'],
+                    'date': '',  # Pas de date pour expression libre
+                    'location': '',  # Pas de lieu pour expression libre
+                    'description': event.get('texte_libre', ''),  # Texte libre à la place de descriptif
+                    'links': None,
+                    'telephone': event['telephone'],
+                    'whatsapp': event['whatsapp'],
+                    'mailcontact': event['mailcontact'],
+                    'email_date': event.get('email_date', 'Non spécifiée'),
+                    'organizer_email': event['mailorga'],
+                    'is_libre_expression': True  # Marqueur pour le template
+                }
+            else:
+                # Sorties: structure complète
+                links = []
+                if event.get('lien'):
+                    links.append(event['lien'])
+                if event.get('agenda'):
+                    links.append(event['agenda'])
+                if event.get('pièces_jointes'):
+                    links.extend(event['pièces_jointes'])
+                
+                event_html = {
+                    'subject': event['titre'],
+                    'date': event['date_heure_sommaire'],
+                    'location': event['lieu_detail'],
+                    'description': event['descriptif'],
+                    'links': links if links else None,
+                    'telephone': event['telephone'],
+                    'whatsapp': event['whatsapp'],
+                    'mailcontact': event['mailcontact'],
+                    'email_date': event.get('email_date', 'Non spécifiée'),
+                    'organizer_email': event['mailorga'],
+                    'is_libre_expression': False
+                }
             events_html_format.append(event_html)
         
         generator = HTMLGenerator(source['title'])

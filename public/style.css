@@ -923,3 +923,27 @@ footer a:hover {
     content: "";
     margin: 5px 0;
 }
+
+/* Cartes d'expression libre : double largeur */
+.event-card-libre {
+    grid-column: span 2;
+}
+
+/* Responsive : réduit la largeur sur petits écrans */
+@media (max-width: 1024px) {
+    .event-card-libre {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .event-card-libre {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 600px) {
+    .event-card-libre {
+        grid-column: span 1;
+    }
+}

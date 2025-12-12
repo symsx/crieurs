@@ -46,6 +46,20 @@ def extract_second_email(text: str) -> str:
     return ""
 
 
+def extract_http_links(text: str) -> list:
+    """Extrait tous les liens HTTP/HTTPS du texte"""
+    link_pattern = r'https?://[^\s\n<>"]+'
+    matches = re.findall(link_pattern, text)
+    # Enlève les doublons tout en préservant l'ordre
+    seen = set()
+    unique_links = []
+    for link in matches:
+        if link not in seen:
+            seen.add(link)
+            unique_links.append(link.strip())
+    return unique_links
+
+
 def clean_text(text: str) -> str:
     """Nettoie le texte"""
     text = text.replace('\r', '')
@@ -335,6 +349,7 @@ def extract_libre_expression_events(email_content: str) -> list:
             phone = extract_phone_number(texte_brut)
             whatsapp = extract_whatsapp_link(texte_brut)
             mailcontact = extract_second_email(texte_brut)
+            http_links = extract_http_links(texte_brut)
             
             # Crée l'événement simplifié pour expression libre
             event = {
@@ -345,6 +360,7 @@ def extract_libre_expression_events(email_content: str) -> list:
                 'telephone': phone,
                 'whatsapp': whatsapp,
                 'mailcontact': mailcontact,
+                'http_links': http_links,  # ✅ Nouveaux liens HTTP
                 # Pas de date, lieu, ou descriptif structuré pour expression libre
                 'date_heure_sommaire': '',
                 'lieu_detail': '',
@@ -476,12 +492,14 @@ def process_annonces_source(email: str, password: str, imap_server: str, imap_po
         for event in all_events_consolidated:
             if source['filter'] == 'crieur-libre-expression':
                 # Expression libre: structure simplifiée
+                # Convertit les liens HTTP en liste (ou None si vide)
+                http_links = event.get('http_links', [])
                 event_html = {
                     'subject': event['titre'],
                     'date': '',  # Pas de date pour expression libre
                     'location': '',  # Pas de lieu pour expression libre
                     'description': event.get('texte_libre', ''),  # Texte libre à la place de descriptif
-                    'links': None,
+                    'links': http_links if http_links else None,  # ✅ Utilise les liens HTTP
                     'telephone': event['telephone'],
                     'whatsapp': event['whatsapp'],
                     'mailcontact': event['mailcontact'],

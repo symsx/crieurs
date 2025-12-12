@@ -1006,6 +1006,20 @@ class HTMLGenerator:
             # Génère le HTML pour le texte libre (à la place de la tooltip popup)
             description = event.get('description', '').replace('\n', '<br>')
             
+            # Génère les liens HTTP s'il y en a
+            links_html = ""
+            if event.get('links'):
+                links_html = '<div class="event-info">\n'
+                links_html += '                    <span class="event-info-icon">🔗</span>\n'
+                links_html += '                    <div class="event-info-content">\n'
+                links_html += '                        <div class="event-info-label">Liens</div>\n'
+                for link in event['links']:
+                    # Extrait le domaine pour l'affichage
+                    link_text = link.replace('https://', '').replace('http://', '').split('/')[0]
+                    links_html += f'                        <div class="event-info-value"><a href="{link}" target="_blank" rel="noopener noreferrer">{link_text}</a></div>\n'
+                links_html += '                    </div>\n'
+                links_html += '                </div>\n'
+            
             # Génère les infos de contact si présentes
             contact_html = ""
             
@@ -1036,6 +1050,8 @@ class HTMLGenerator:
                 <div class="event-libre-text">
                     {description}
                 </div>
+                
+                {links_html}
                 
                 {contact_html}
                 

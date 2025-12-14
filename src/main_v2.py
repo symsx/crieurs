@@ -63,7 +63,6 @@ def extract_http_links(text: str) -> list:
 def clean_text(text: str) -> str:
     """Nettoie le texte"""
     text = text.replace('\r', '')
-    text = text.replace('\n', ' ')
     cleaned = []
     for char in text:
         category = unicodedata.category(char)
@@ -71,15 +70,68 @@ def clean_text(text: str) -> str:
             cleaned.append(char)
         elif ord(char) < 128 and char.isprintable():
             cleaned.append(char)
+        elif char == '\n':
+            cleaned.append(char)  # Préserve les retours à la ligne
     text = ''.join(cleaned)
     text = re.sub(r' +', ' ', text)
     return text.strip()
 
 
+def clean_libre_expression_text(text: str) -> str:
+    """
+    Nettoie le texte d'expression libre tout en préservant la structure.
+    - Remplace les retours à la ligne multiples par un double saut
+    - Gère les citations (lignes commençant par ">")
+    - Préserve la lisibilité
+    """
+    lines = text.split('\n')
+    cleaned_lines = []
+    prev_was_empty = False
+    
+    for line in lines:
+        line = line.rstrip()  # Enlève trailing whitespace
+        
+        # Ignore les lignes qui sont juste des citations vides ("> ")
+        if line.startswith('>') and line.strip() == '>':
+            continue
+        
+        # Traite les citations (lignes commençant par ">")
+        if line.startswith('>'):
+            # Formate les citations
+            citation = line.lstrip('> ').strip()
+            if citation:
+                cleaned_lines.append(f"  > {citation}")
+            prev_was_empty = False
+        
+        # Traite les lignes normales
+        elif line.strip():
+            # Ajoute une ligne vide avant si la précédente était vide et celle-ci n'est pas une continuation
+            if prev_was_empty and cleaned_lines and not cleaned_lines[-1].startswith('  >'):
+                # Ne pas ajouter de double ligne vide
+                pass
+            
+            cleaned_lines.append(line.strip())
+            prev_was_empty = False
+        
+        else:
+            # Ligne vide
+            if not prev_was_empty and cleaned_lines:  # Évite les lignes vides en début
+                # Marque qu'on a une ligne vide
+                prev_was_empty = True
+    
+    # Joins avec des retours à la ligne
+    result = '\n'.join(cleaned_lines)
+    
+    # Enlève les doublons de retours à la ligne
+    result = re.sub(r'\n\n\n+', '\n\n', result)
+    
+    return result.strip()
+
+
 def extract_sommaire(email_content: str) -> str:
     """Extrait le sommaire entre "Sommaire :" et "------..." """
     match = re.search(
-        r'Sommaire\s*:\s*\n(.*?)(?:\n-{10,}|\nMessage-ID:)',
+        r'Sommaire\s*:\s*\n(.*?)(?:\n\s*\n\s*-{10,}|\nMessage-ID:)',
         email_content,
         re.DOTALL
     )
@@ -136,13 +188,20 @@ def parse_event_fields(event: dict):
     types = re.findall(r'\[([^\]]+)\]', text)
     event['types'] = types
     
+    # Enlève les types au début
     remaining = re.sub(r'^\s*(\[([^\]]+)\]\s*)+', '', text)
     remaining = re.sub(r'^\s*-\s*', '', remaining)
     
+    # Extrait l'email et tout ce qui le suit (auteur, etc.)
     email_match = re.search(r'<([^>]+)>', remaining)
     if email_match:
         event['email'] = email_match.group(1).strip()
-        remaining = re.sub(r'<[^>]+>', '', remaining).strip()
+        # Enlève tout depuis l'email jusquà la fin (l'auteur et le reste)
+        remaining = remaining[:email_match.start()].strip()
+    
+    # Split par ` - ` pour extraire titre, date, organisateur
+    # Mais supprime les ` -` traînants à la fin
+    remaining = remaining.rstrip(' -').strip()
     
     parts = [p.strip() for p in remaining.split(' - ')]
     
@@ -338,21 +397,47 @@ def extract_libre_expression_events(email_content: str) -> list:
                 # Si un seul type et ce n'est pas le type d'annonce, c'est le lieu
                 lieu = types[0]
         
-        # Extrait le texte entre les tirets
-        # Début: une série de tirets (au moins 10)
-        # Fin: "-------------------------" (25 tirets)
+        # Extrait le texte après les en-têtes (Date, From, Subject) et avant le séparateur "-----"
+        # Deux formats possibles :
+        # 1. Avec HTML : [ Texte initialement au format HTML ]\n[Auteur] - [Lieu]\n-----...texte...
+        # 2. Simple : texte direct sans préambule
+        
         texte_match = re.search(
-            r'-{10,}\s*\n+(.*?)\n+\-{25,}',
+            r'Subject:.*?\n(.*?)\n\-{10,}',
             message_content,
-            re.DOTALL
+            re.DOTALL | re.IGNORECASE
         )
         
         if texte_match:
             texte_brut = texte_match.group(1).strip()
             
-            # Nettoie le texte : enlève le titre au début s'il est présent
-            # Le titre est souvent suivi de tirets "======..."
-            texte_brut = re.sub(r'^[^=]*=+\s*\n+', '', texte_brut, flags=re.DOTALL)
+            # Ignore les lignes à supprimer :
+            # 1. "[ Texte initialement au format HTML ]"
+            texte_brut = re.sub(r'\[\s*Texte initialement au format HTML\s*\]', '', texte_brut, flags=re.IGNORECASE)
+            
+            # 2. Les champs entre crochets (ex: [Bruno Duguenet] - [Coulaures])
+            #    Mais garde le texte qui suit après les tirets
+            lines = texte_brut.split('\n')
+            filtered_lines = []
+            skip_until_separator = False
+            
+            for line in lines:
+                # Si c'est une ligne avec seulement des crochets ou tirets, skip
+                if re.match(r'^\s*(\[.*?\]\s*-?\s*)+\s*$', line):
+                    skip_until_separator = True
+                    continue
+                
+                # Si la ligne précédente était des crochets et celle-ci est vide/tirets, skip aussi
+                if skip_until_separator and re.match(r'^\s*\-+\s*$', line):
+                    skip_until_separator = False
+                    continue
+                
+                filtered_lines.append(line)
+            
+            texte_brut = '\n'.join(filtered_lines).strip()
+            
+            # Nettoie les espaces inutiles
+            texte_brut = re.sub(r'\n\s*\n', '\n', texte_brut).strip()
             
             # Extrait les infos de contact du texte
             phone = extract_phone_number(texte_brut)
@@ -365,7 +450,7 @@ def extract_libre_expression_events(email_content: str) -> list:
                 'numero': idx,
                 'titre': titre,
                 'mailorga': email_auteur,
-                'texte_libre': clean_text(texte_brut),
+                'texte_libre': clean_libre_expression_text(texte_brut),  # ✅ Utilise la fonction améliorée
                 'telephone': phone,
                 'whatsapp': whatsapp,
                 'mailcontact': mailcontact,

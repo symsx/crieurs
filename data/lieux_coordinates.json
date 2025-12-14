@@ -277,5 +277,53 @@
     "lon": 0.9045666,
     "source": "api",
     "date_added": "2025-12-12"
+  },
+  "Milhac-de-Nontron": {
+    "lat": 45.4683333,
+    "lon": 0.7813889,
+    "source": "api",
+    "date_added": "2025-12-12"
+  },
+  "19 Rue de la Libération 24360 Piégut-Pluviers": {
+    "lat": 45.6203855,
+    "lon": 0.6962563,
+    "source": "api",
+    "date_added": "2025-12-12"
+  },
+  "1528 Route de la Côle 24470 Milhac-de-Nontron": {
+    "lat": 45.4601283,
+    "lon": 0.7935388,
+    "source": "api",
+    "date_added": "2025-12-12"
+  },
+  "208 Chemin du Monastère 24450 La Coquille": {
+    "lat": 45.5559327,
+    "lon": 1.0020839,
+    "source": "api",
+    "date_added": "2025-12-12"
+  },
+  "Place de la Pile 24360 Bussière-Badil": {
+    "lat": 45.6523061,
+    "lon": 0.6043793,
+    "source": "api",
+    "date_added": "2025-12-12"
+  },
+  "Coulaures": {
+    "lat": 45.3071773,
+    "lon": 0.9806136,
+    "source": "api",
+    "date_added": "2025-12-13"
+  },
+  "Chemin des Bourdons 24800 Thiviers": {
+    "lat": 45.4286793,
+    "lon": 0.8860618,
+    "source": "api",
+    "date_added": "2025-12-13"
+  },
+  "Château de Lasteyrie Route de la Fontaine 24340 La\nRochebeaucourt-et-Argentine": {
+    "lat": 45.4836853,
+    "lon": 0.3797403,
+    "source": "api",
+    "date_added": "2025-12-14"
   }
 }

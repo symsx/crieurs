@@ -14,6 +14,7 @@ from typing import List, Dict, Tuple
 from bs4 import BeautifulSoup
 import os
 from dotenv import load_dotenv
+import htmlmin
 
 load_dotenv()
 
@@ -990,6 +991,9 @@ class HTMLGenerator:
 </html>
 """
         
+        # Minifie le HTML pour réduire la taille du fichier
+        html_content = htmlmin.minify(html_content, remove_empty_space=True)
+        
         with open(output_file, "w", encoding="utf-8") as f:
             f.write(html_content)
         
@@ -1269,6 +1273,9 @@ class HTMLGenerator:
 </body>
 </html>
 """
+        
+        # Minifie le HTML pour réduire la taille du fichier
+        html_content = htmlmin.minify(html_content, remove_empty_space=True)
         
         with open(output_file, "w", encoding="utf-8") as f:
             f.write(html_content)

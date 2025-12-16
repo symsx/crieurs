@@ -4,15 +4,18 @@ function initTopNavigation() {
     const navLinks = document.querySelectorAll('.top-navigation .nav-link');
     
     navLinks.forEach(link => {
-        link.classList.remove('active-if-sorties', 'active-if-libre');
+        link.classList.remove('active-if-sorties', 'active-if-libre', 'active-if-solidaire');
         
         const href = link.getAttribute('href');
         if ((currentPage === 'sorties' && href.includes('annonces.html')) ||
-            (currentPage === 'libre' && href.includes('expression_libre.html'))) {
+            (currentPage === 'libre' && href.includes('expression_libre.html')) ||
+            (currentPage === 'solidaire' && href.includes('solidaire.html'))) {
             if (currentPage === 'sorties') {
                 link.classList.add('active-if-sorties');
-            } else {
+            } else if (currentPage === 'libre') {
                 link.classList.add('active-if-libre');
+            } else if (currentPage === 'solidaire') {
+                link.classList.add('active-if-solidaire');
             }
         }
     });
@@ -139,5 +142,38 @@ globalTooltip.addEventListener('mouseenter', () => {
 globalTooltip.addEventListener('mouseleave', () => {
     if (currentCard) {
         scheduleHideTooltip();
+    }
+});
+
+// Filtre par commune
+document.addEventListener('DOMContentLoaded', function() {
+    const communeFilter = document.getElementById('commune-filter');
+    const eventCards = document.querySelectorAll('.event-card');
+    
+    console.log('Initializing commune filter...');
+    console.log('Filter element:', communeFilter);
+    console.log('Number of event cards:', eventCards.length);
+    
+    if (communeFilter && eventCards.length > 0) {
+        communeFilter.addEventListener('change', function() {
+            const selectedCommune = this.value;
+            console.log('Selected commune:', selectedCommune);
+            
+            eventCards.forEach(card => {
+                const cardCommune = card.getAttribute('data-commune');
+                console.log('Card commune:', cardCommune, '| Match:', cardCommune === selectedCommune || !selectedCommune);
+                
+                // Affiche la carte si :
+                // - Aucune commune n'est sélectionnée (valeur vide = "Afficher toutes les communes")
+                // - La commune de la carte correspond exactement à celle sélectionnée
+                if (!selectedCommune || cardCommune === selectedCommune) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    } else {
+        console.warn('Filter element or event cards not found');
     }
 });

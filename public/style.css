@@ -242,6 +242,66 @@ header p {
     background: rgba(244, 196, 48, 0.1);
 }
 
+/* Filtre par commune */
+.filter-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    flex-wrap: wrap;
+}
+
+.filter-section label {
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    font-size: 1em;
+}
+
+.commune-selector {
+    padding: 10px 15px;
+    border: 2px solid var(--gco-border);
+    border-radius: 8px;
+    font-family: 'Ysabeau Office', sans-serif;
+    font-size: 1em;
+    color: var(--text-primary);
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 250px;
+}
+
+.commune-selector:hover {
+    border-color: var(--gco-green);
+    box-shadow: 0 2px 8px rgba(107, 125, 30, 0.1);
+}
+
+.commune-selector:focus {
+    outline: none;
+    border-color: var(--gco-green);
+    box-shadow: 0 0 0 3px rgba(107, 125, 30, 0.1);
+}
+
+@media (max-width: 768px) {
+    .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-section label {
+        width: 100%;
+    }
+    
+    .commune-selector {
+        min-width: auto;
+        width: 100%;
+    }
+}
+
 .events-grid {
     display: flex;
     flex-direction: column;

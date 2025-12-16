@@ -325,5 +325,17 @@
     "lon": 0.3797403,
     "source": "api",
     "date_added": "2025-12-14"
+  },
+  "2433 Route de la Chapelle 24470 Saint-Pardoux-la-Rivière": {
+    "lat": 45.4994741,
+    "lon": 0.7862814,
+    "source": "api",
+    "date_added": "2025-12-14"
+  },
+  "Cussac": {
+    "lat": 44.8376741,
+    "lon": 0.8579252,
+    "source": "api",
+    "date_added": "2025-12-15"
   }
 }

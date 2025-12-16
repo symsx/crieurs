@@ -588,6 +588,11 @@ def process_annonces_source(email: str, password: str, imap_server: str, imap_po
                 # Expression libre: structure simplifiée
                 # Convertit les liens HTTP en liste (ou None si vide)
                 http_links = event.get('http_links', [])
+                # Extrait la commune de types[1]
+                commune = ''
+                if event.get('types') and len(event['types']) > 1:
+                    commune = event['types'][1]
+                    
                 event_html = {
                     'subject': event['titre'],
                     'date': '',  # Pas de date pour expression libre
@@ -599,7 +604,8 @@ def process_annonces_source(email: str, password: str, imap_server: str, imap_po
                     'mailcontact': event['mailcontact'],
                     'email_date': event.get('email_date', 'Non spécifiée'),
                     'organizer_email': event['mailorga'],
-                    'is_libre_expression': True  # Marqueur pour le template
+                    'is_libre_expression': True,  # Marqueur pour le template
+                    'commune': commune  # ✅ Ajoute la commune
                 }
             else:
                 # Sorties: structure complète
@@ -610,6 +616,11 @@ def process_annonces_source(email: str, password: str, imap_server: str, imap_po
                     links.append(event['agenda'])
                 if event.get('pièces_jointes'):
                     links.extend(event['pièces_jointes'])
+                
+                # Extrait la commune de types[1]
+                commune = ''
+                if event.get('types') and len(event['types']) > 1:
+                    commune = event['types'][1]
                 
                 event_html = {
                     'subject': event['titre'],
@@ -622,7 +633,8 @@ def process_annonces_source(email: str, password: str, imap_server: str, imap_po
                     'mailcontact': event['mailcontact'],
                     'email_date': event.get('email_date', 'Non spécifiée'),
                     'organizer_email': event['mailorga'],
-                    'is_libre_expression': False
+                    'is_libre_expression': False,
+                    'commune': commune  # ✅ Ajoute la commune
                 }
             events_html_format.append(event_html)
         
@@ -691,13 +703,78 @@ def ftp_upload(output_dir: str):
         return
     
     try:
-        print(f"  📁 Uploading vers {ftp_remote_path}...")
-        uploaded, failed = uploader.upload_directory(output_dir, ftp_remote_path)
+        # Ajoute /output au chemin distant pour les fichiers HTML
+        remote_output_path = os.path.join(ftp_remote_path, "output").replace('\\', '/')
+        print(f"  📁 Uploading vers {remote_output_path}...")
+        uploaded, failed = uploader.upload_directory(output_dir, remote_output_path)
         
         if uploaded > 0:
             print(f"  ✓ {uploaded} fichier(s) uploadé(s)")
         if failed > 0:
             print(f"  ✗ {failed} fichier(s) échoué(s)")
+    finally:
+        uploader.close()
+
+
+def upload_static_files(base_dir: str):
+    """Upload les fichiers CSS et JS s'ils ont changé"""
+    from ftp_uploader import FTPUploader
+    
+    enable_ftp = os.getenv("ENABLE_FTP_UPLOAD", "false").lower() == "true"
+    if not enable_ftp:
+        return
+    
+    ftp_host = os.getenv("FTP_HOST", "").strip()
+    ftp_port = int(os.getenv("FTP_PORT", "21"))
+    ftp_user = os.getenv("FTP_USER", "").strip()
+    ftp_password = os.getenv("FTP_PASSWORD", "").strip()
+    ftp_remote_path = os.getenv("FTP_REMOTE_PATH", "/").strip()
+    ftp_use_tls = os.getenv("FTP_USE_TLS", "false").lower() == "true"
+    
+    if not ftp_host or not ftp_user or not ftp_password:
+        return
+    
+    # Fichiers à uploader vers /public
+    static_files = [
+        ('public/style.css', 'style.css'),
+        ('public/script.js', 'script.js'),
+        ('public/script_carte.js', 'script_carte.js')
+    ]
+    
+    uploader = FTPUploader(
+        host=ftp_host,
+        port=ftp_port,
+        username=ftp_user,
+        password=ftp_password,
+        use_tls=ftp_use_tls
+    )
+    
+    success, msg = uploader.connect()
+    if not success:
+        return
+    
+    try:
+        # Crée le répertoire /public s'il n'existe pas
+        remote_public_dir = os.path.join(ftp_remote_path, "public").replace('\\', '/')
+        try:
+            uploader.ftp.mkd(remote_public_dir)
+        except:
+            pass  # Le répertoire existe probablement déjà
+        
+        uploaded = 0
+        for local_file, filename in static_files:
+            local_path = os.path.join(base_dir, local_file)
+            if os.path.exists(local_path):
+                try:
+                    remote_full_path = os.path.join(remote_public_dir, filename).replace('\\', '/')
+                    with open(local_path, 'rb') as f:
+                        uploader.ftp.storbinary(f'STOR {remote_full_path}', f)
+                    uploaded += 1
+                except Exception as e:
+                    print(f"  ⚠ Erreur upload {local_file}: {e}")
+        
+        if uploaded > 0:
+            print(f"  ✓ {uploaded} fichier(s) statique(s) uploadé(s)")
     finally:
         uploader.close()
 
@@ -732,7 +809,7 @@ def main():
         return
     
     try:
-        # Configuration des deux sources
+        # Configuration des trois sources
         sources = [
             {
                 'name': 'Sorties',
@@ -747,6 +824,13 @@ def main():
                 'output_html': 'expression_libre.html',
                 'output_map': 'carte_expression_libre.html',
                 'title': 'Expression Libre Crieur'
+            },
+            {
+                'name': 'Solidaire',
+                'filter': 'crieur-solidaire',
+                'output_html': 'solidaire.html',
+                'output_map': 'carte_solidaire.html',
+                'title': 'Annonces Solidaire Crieur'
             }
         ]
         
@@ -772,6 +856,10 @@ def main():
             base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
             output_dir = os.path.join(base_dir, "output")
             ftp_upload(output_dir)
+            
+            # Upload des fichiers CSS et JS
+            print("📤 Upload fichiers statiques (CSS/JS)")
+            upload_static_files(base_dir)
         
         # Résumé
         print(f"\n{'='*60}")

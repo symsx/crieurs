@@ -850,7 +850,7 @@ class HTMLGenerator:
     def __init__(self, title: str = "Annonces d'événements"):
         self.title = title
         self.events = []
-        self.source_type = "Sorties"  # "Sorties" ou "Expression Libre"
+        self.source_type = "Sorties"  # "Sorties", "Expression Libre" ou "Solidaire"
     
     def add_events(self, events: List[Dict]):
         """Ajoute des événements à afficher"""
@@ -866,16 +866,22 @@ class HTMLGenerator:
             menu_map = ""  # Pas de carte pour expression libre
             header_title = "📢 Expression Libre Crieur"
             map_text = ""
+        elif self.source_type == "Solidaire":
+            menu_annonces = "annonces.html"
+            menu_map = "carte_solidaire.html"
+            header_title = "🤝 Annonces Solidaire Crieur"
+            map_text = "🗺️ Carte solidaire"
         else:
             menu_annonces = "annonces.html"
             menu_map = "carte_des_annonces.html"
             header_title = "📅 Annonces Crieur"
             map_text = "🗺️ Carte des sorties"
         
-        # Menu de navigation entre sorties et expression libre
+        # Menu de navigation entre sorties, expression libre et solidaire
         navigation_menu = """    <div class="top-navigation">
         <a href="annonces.html" class="nav-link active-if-sorties">📋 Sorties</a>
         <a href="expression_libre.html" class="nav-link active-if-libre">📢 Expression Libre</a>
+        <a href="solidaire.html" class="nav-link active-if-solidaire">🤝 Solidaire</a>
     </div>
 """
         
@@ -891,7 +897,7 @@ class HTMLGenerator:
     <link rel="stylesheet" href="../public/style.css">
     <script>
         // Initialise le menu de navigation au chargement
-        window.currentPage = '{"libre" if self.source_type == "Expression Libre" else "sorties"}';
+        window.currentPage = '{"solidaire" if self.source_type == "Solidaire" else ("libre" if self.source_type == "Expression Libre" else "sorties")}';
     </script>
 </head>
 <body>
@@ -906,6 +912,7 @@ class HTMLGenerator:
     <div class="mobile-menu">
         <a href="annonces.html">📋 Sorties</a>
         <a href="expression_libre.html">📢 Expression Libre</a>
+        <a href="solidaire.html">🤝 Solidaire</a>
         <div style="border-top: 1px solid #ccc; margin: 10px 0;"></div>
         {f'<a href="{menu_map}">{map_text}</a>' if menu_map else ''}
     </div>
@@ -917,6 +924,13 @@ class HTMLGenerator:
             <p>Générée le {datetime.now().strftime('%d/%m/%Y à %H:%M')}</p>
         </header>
 
+        <div class="filter-section">
+            <label for="commune-filter">Filtrer par commune:</label>
+            <select id="commune-filter" class="commune-selector">
+                <option value="">Afficher toutes les communes</option>
+                COMMUNES_OPTIONS_PLACEHOLDER
+            </select>
+        </div>
         
         <div class="events-grid">
 """
@@ -927,6 +941,21 @@ class HTMLGenerator:
             </div>
 """
         else:
+            # Extrait les communes uniques et les trie
+            communes_set = set()
+            for event in self.events:
+                commune = event.get('commune', '').strip()
+                if commune:
+                    communes_set.add(commune)
+            
+            communes_sorted = sorted(list(communes_set))
+            communes_options = ""
+            for commune in communes_sorted:
+                communes_options += f'                <option value="{commune}">{commune}</option>\n'
+            
+            # Remplace le placeholder par les options réelles
+            html_content = html_content.replace('COMMUNES_OPTIONS_PLACEHOLDER', communes_options.rstrip('\n'))
+            
             # Groupe les événements par date de réception
             from collections import defaultdict
             from datetime import datetime
@@ -1054,7 +1083,7 @@ class HTMLGenerator:
                 organizer_email = event['organizer_email']
                 organizer_email_html = f'<div class="event-info"><span class="event-info-icon">📧</span><div class="event-info-content"><div class="event-info-label">Auteur</div><div class="event-info-value"><a href="mailto:{organizer_email}" style="color: #667eea; text-decoration: none;">{organizer_email}</a></div></div></div>\n'
             
-            return f"""            <div class="event-card event-card-libre">
+            return f"""            <div class="event-card event-card-libre" data-commune="{event.get('commune', '')}">
                 <h3>{event['subject']}</h3>
                 
                 <div class="event-libre-text">
@@ -1129,14 +1158,14 @@ class HTMLGenerator:
             if ' à ' in email_date_formatted:
                 email_date_formatted = email_date_formatted.split(' à ')[0]
             
-            return f"""            <div class="event-card">
+            return f"""            <div class="event-card" data-commune="{event.get('commune', '')}">
                 <h3>{event['subject']}</h3>
                 {tooltip_html}
                 
                 <div class="event-info">
                     <span class="event-info-icon">📅</span>
                     <div class="event-info-content">
-                        <div class="event-info-label">Date de l'événement</div>
+                        <div class="event-info-label">Date de l'annonce</div>
                         <div class="event-info-value">{event['date']}</div>
                     </div>
                 </div>
@@ -1203,7 +1232,7 @@ class HTMLGenerator:
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.0/MarkerCluster.Default.min.css">
-    
+
     <link rel="stylesheet" href="../public/style.css">
 </head>
 <body class="map-page">

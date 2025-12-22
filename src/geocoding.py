@@ -222,14 +222,14 @@ class Geocoder:
         """
         Utilise l'API Nominatim d'OpenStreetMap (gratuit) pour géocoder
         Avec fallback progressif : adresse complète → commune seule
-        Priorise les résultats dans la Dordogne (département 24)
+        Priorise les résultats dans les 4 départements régionaux (24, 16, 87, 19)
         Ajoute les résultats au cache local
         """
         try:
-            # Essai 1 : adresse complète en France
+            # Essai 1 : adresse complète en France (sans limitation de département)
             print(f"  → Essai 1: Adresse complète '{location}'")
             params = {
-                'q': f"{location}, Dordogne, France",
+                'q': f"{location}, France",
                 'format': 'json',
                 'limit': 5,  # Augmente le nombre de résultats pour filtrer
                 'addressdetails': 1,
@@ -245,8 +245,8 @@ class Geocoder:
             
             results = response.json()
             if results:
-                # Priorise les résultats en Dordogne
-                result = self._best_result_in_dordogne(results, location)
+                # Priorise les résultats dans les 4 départements
+                result = self._best_result_in_departments(results, location)
                 if result:
                     lat = float(result['lat'])
                     lon = float(result['lon'])
@@ -257,11 +257,11 @@ class Geocoder:
                     self._add_to_cache(location, lat, lon, source="api")
                     return (lat, lon, address)
             
-            # Essai 2 : essaie juste la commune en Dordogne
+            # Essai 2 : essaie juste la commune en France
             commune_name = self._extract_commune_name(location)
             if commune_name and commune_name != location:
-                print(f"  → Essai 2: Commune seule '{commune_name}' en Dordogne")
-                params['q'] = f"{commune_name}, Dordogne, France"
+                print(f"  → Essai 2: Commune seule '{commune_name}' en France")
+                params['q'] = f"{commune_name}, France"
                 
                 response = self.session.get(
                     'https://nominatim.openstreetmap.org/search',
@@ -272,17 +272,17 @@ class Geocoder:
                 
                 results = response.json()
                 if results:
-                    result = self._best_result_in_dordogne(results, commune_name)
+                    result = self._best_result_in_departments(results, commune_name)
                     if result:
                         lat = float(result['lat'])
                         lon = float(result['lon'])
                         address = result.get('display_name', location)
-                        print(f"✓ {location} → ({lat}, {lon}) [API - commune Dordogne]")
+                        print(f"✓ {location} → ({lat}, {lon}) [API - commune régionale]")
                         # Ajoute au cache
                         self._add_to_cache(location, lat, lon, source="api")
                         return (lat, lon, address)
             
-            print(f"✗ {location} introuvable en Dordogne")
+            print(f"✗ {location} introuvable dans les départements régionaux (24, 16, 87, 19)")
             return None
         
         except Exception as e:
@@ -292,24 +292,28 @@ class Geocoder:
             # Respecte rate limiting d'OpenStreetMap (1 req/sec)
             time.sleep(1)
     
-    def _best_result_in_dordogne(self, results: list, search_term: str) -> Optional[dict]:
+    def _best_result_in_departments(self, results: list, search_term: str) -> Optional[dict]:
         """
-        Priorise les résultats en Dordogne parmi les résultats Nominatim
+        Priorise les résultats dans les 4 départements régionaux parmi les résultats Nominatim
+        Départements: 24 (Dordogne), 16 (Charente), 87 (Haute-Vienne), 19 (Corrèze)
         Retourne le meilleur résultat
         """
-        # Priorise les résultats avec code postal 24xxx
+        target_departments = ['24', '16', '87', '19']
+        
+        # Priorise les résultats avec code postal des 4 départements
         for result in results:
             postal_code = result.get('address', {}).get('postcode', '')
-            if postal_code.startswith('24'):
+            if postal_code and postal_code[:2] in target_departments:
                 return result
         
-        # Priorise les résultats en Dordogne
+        # Priorise les résultats par département
+        department_names = ['dordogne', 'charente', 'haute-vienne', 'corrèze']
         for result in results:
             display_name = result.get('display_name', '').lower()
-            if 'dordogne' in display_name:
+            if any(dept in display_name for dept in department_names):
                 return result
         
-        # Si rien trouvé en Dordogne, retourne le premier résultat
+        # Si rien trouvé dans les 4 départements, retourne le premier résultat
         return results[0] if results else None
 
 

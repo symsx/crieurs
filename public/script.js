@@ -1,21 +1,26 @@
 // Gestion du menu de navigation supérieur
+console.log('[script.js] Loaded');
+
 function initTopNavigation() {
     const currentPage = window.currentPage || 'sorties';
     const navLinks = document.querySelectorAll('.top-navigation .nav-link');
     
     navLinks.forEach(link => {
-        link.classList.remove('active-if-sorties', 'active-if-libre', 'active-if-solidaire');
+        link.classList.remove('active-if-sorties', 'active-if-libre', 'active-if-solidaire', 'active-if-commerciales');
         
         const href = link.getAttribute('href');
         if ((currentPage === 'sorties' && href.includes('annonces.html')) ||
             (currentPage === 'libre' && href.includes('expression_libre.html')) ||
-            (currentPage === 'solidaire' && href.includes('solidaire.html'))) {
+            (currentPage === 'solidaire' && href.includes('solidaire.html')) ||
+            (currentPage === 'commerciales' && href.includes('annonces_commerciales.html'))) {
             if (currentPage === 'sorties') {
                 link.classList.add('active-if-sorties');
             } else if (currentPage === 'libre') {
                 link.classList.add('active-if-libre');
             } else if (currentPage === 'solidaire') {
                 link.classList.add('active-if-solidaire');
+            } else if (currentPage === 'commerciales') {
+                link.classList.add('active-if-commerciales');
             }
         }
     });
@@ -145,35 +150,116 @@ globalTooltip.addEventListener('mouseleave', () => {
     }
 });
 
-// Filtre par commune
+// Filtre par commune et par date
 document.addEventListener('DOMContentLoaded', function() {
     const communeFilter = document.getElementById('commune-filter');
+    const dateFilter = document.getElementById('date-filter');
     const eventCards = document.querySelectorAll('.event-card');
     
-    console.log('Initializing commune filter...');
-    console.log('Filter element:', communeFilter);
+    console.log('Initializing filters...');
+    console.log('Commune filter element:', communeFilter);
+    console.log('Date filter element:', dateFilter);
     console.log('Number of event cards:', eventCards.length);
     
-    if (communeFilter && eventCards.length > 0) {
-        communeFilter.addEventListener('change', function() {
-            const selectedCommune = this.value;
-            console.log('Selected commune:', selectedCommune);
-            
-            eventCards.forEach(card => {
-                const cardCommune = card.getAttribute('data-commune');
-                console.log('Card commune:', cardCommune, '| Match:', cardCommune === selectedCommune || !selectedCommune);
-                
-                // Affiche la carte si :
-                // - Aucune commune n'est sélectionnée (valeur vide = "Afficher toutes les communes")
-                // - La commune de la carte correspond exactement à celle sélectionnée
-                if (!selectedCommune || cardCommune === selectedCommune) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-    } else {
-        console.warn('Filter element or event cards not found');
+    // Fonction pour parser une date au format "samedi 13 décembre 2025" ou "décembre 2025"
+    function parseEventDate(dateStr) {
+        if (!dateStr) return null;
+        
+        // Mapping des mois français
+        const moisFr = {
+            "janvier": 0, "février": 1, "mars": 2, "avril": 3, "mai": 4, "juin": 5,
+            "juillet": 6, "août": 7, "septembre": 8, "octobre": 9, "novembre": 10, "décembre": 11
+        };
+        
+        // Enlève le jour de la semaine (ex: "samedi" dans "samedi 13 décembre 2025")
+        const withoutDay = dateStr.replace(/^(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\s+/, '');
+        
+        // Enlève l'heure si elle est présente (ex: "22 décembre 2025 à 20:00" → "22 décembre 2025")
+        const withoutTime = withoutDay.replace(/\s+à\s+\d{1,2}:\d{2}$/, '');
+        
+        // Regex compatible avec:
+        // - "13 décembre 2025"
+        // - "décembre 2025" (période complète du mois)
+        // - "13 au 15 décembre 2025"
+        // - Avec ou sans heure (la partie heure est enlevée avant)
+        const periodMatch = withoutTime.match(/^(\d+)?\s*(?:au\s+\d+)?\s*(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+(\d{4})$/i);
+        
+        if (!periodMatch) return null;
+        
+        const day = periodMatch[1] ? parseInt(periodMatch[1]) : 1;
+        const month = moisFr[periodMatch[2].toLowerCase()];
+        const year = parseInt(periodMatch[3]);
+        
+        if (month === undefined) return null;
+        
+        // Retourne le 1er jour si pas de jour spécifique (ex: "décembre 2025")
+        return new Date(year, month, day);
     }
+    
+    // Fonction pour vérifier si une date est "à venir" (aujourd'hui ou après)
+    function isUpcoming(dateStr) {
+        if (!dateStr) {
+            console.log('isUpcoming: dateStr is empty');
+            return false;
+        }
+        
+        const eventDate = parseEventDate(dateStr);
+        if (!eventDate) {
+            console.log(`isUpcoming: Failed to parse date: "${dateStr}"`);
+            return false;
+        }
+        
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);  // Réinitialise l'heure à 00:00:00
+        
+        const isUp = eventDate >= today;
+        console.log(`isUpcoming: "${dateStr}" => ${eventDate.toLocaleDateString('fr-FR')} (today: ${today.toLocaleDateString('fr-FR')}) => ${isUp}`);
+        
+        return isUp;
+    }
+    
+    // Fonction principale de filtrage
+    function applyFilters() {
+        const selectedCommune = communeFilter ? communeFilter.value : '';
+        const selectedDateFilter = dateFilter ? dateFilter.value : 'all';
+        
+        console.log('Applying filters - Commune:', selectedCommune, 'Date filter:', selectedDateFilter);
+        
+        eventCards.forEach(card => {
+            const cardCommune = card.getAttribute('data-commune');
+            const cardEventDate = card.getAttribute('data-event-date');
+            
+            // Filtre commune
+            const communeMatch = !selectedCommune || cardCommune === selectedCommune;
+            
+            // Filtre date
+            let dateMatch = true;
+            if (selectedDateFilter === 'upcoming') {
+                dateMatch = isUpcoming(cardEventDate);
+            }
+            
+            // Affiche la carte si elle passe tous les filtres
+            if (communeMatch && dateMatch) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+    
+    // Ajoute les event listeners
+    if (communeFilter && eventCards.length > 0) {
+        communeFilter.addEventListener('change', applyFilters);
+    } else {
+        console.warn('Commune filter element or event cards not found');
+    }
+    
+    if (dateFilter && eventCards.length > 0) {
+        dateFilter.addEventListener('change', applyFilters);
+    } else {
+        console.warn('Date filter element or event cards not found');
+    }
+    
+    // Applique les filtres au chargement initial (important pour la valeur par défaut "À venir")
+    applyFilters();
 });

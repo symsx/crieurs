@@ -850,7 +850,7 @@ class HTMLGenerator:
     def __init__(self, title: str = "Annonces d'événements"):
         self.title = title
         self.events = []
-        self.source_type = "Sorties"  # "Sorties", "Expression Libre" ou "Solidaire"
+        self.source_type = "Sorties"  # "Sorties", "Expression Libre", "Solidaire" ou "Annonces Commerciales"
     
     def add_events(self, events: List[Dict]):
         """Ajoute des événements à afficher"""
@@ -871,17 +871,23 @@ class HTMLGenerator:
             menu_map = "carte_solidaire.html"
             header_title = "🤝 Annonces Solidaire Crieur"
             map_text = "🗺️ Carte solidaire"
+        elif self.source_type == "Annonces Commerciales":
+            menu_annonces = "annonces.html"
+            menu_map = "carte_annonces_commerciales.html"
+            header_title = "🏪 Annonces Commerciales Crieur"
+            map_text = "🗺️ Carte commerciale"
         else:
             menu_annonces = "annonces.html"
             menu_map = "carte_des_annonces.html"
             header_title = "📅 Annonces Crieur"
             map_text = "🗺️ Carte des sorties"
         
-        # Menu de navigation entre sorties, expression libre et solidaire
+        # Menu de navigation entre sorties, expression libre, solidaire et commerciales
         navigation_menu = """    <div class="top-navigation">
         <a href="annonces.html" class="nav-link active-if-sorties">📋 Sorties</a>
         <a href="expression_libre.html" class="nav-link active-if-libre">📢 Expression Libre</a>
         <a href="solidaire.html" class="nav-link active-if-solidaire">🤝 Solidaire</a>
+        <a href="annonces_commerciales.html" class="nav-link active-if-commerciales">🏪 Commerciales</a>
     </div>
 """
         
@@ -897,7 +903,7 @@ class HTMLGenerator:
     <link rel="stylesheet" href="../public/style.css">
     <script>
         // Initialise le menu de navigation au chargement
-        window.currentPage = '{"solidaire" if self.source_type == "Solidaire" else ("libre" if self.source_type == "Expression Libre" else "sorties")}';
+        window.currentPage = '{"commerciales" if self.source_type == "Annonces Commerciales" else ("solidaire" if self.source_type == "Solidaire" else ("libre" if self.source_type == "Expression Libre" else "sorties"))}';
     </script>
 </head>
 <body>
@@ -913,6 +919,7 @@ class HTMLGenerator:
         <a href="annonces.html">📋 Sorties</a>
         <a href="expression_libre.html">📢 Expression Libre</a>
         <a href="solidaire.html">🤝 Solidaire</a>
+        <a href="annonces_commerciales.html">🏪 Commerciales</a>
         <div style="border-top: 1px solid #ccc; margin: 10px 0;"></div>
         {f'<a href="{menu_map}">{map_text}</a>' if menu_map else ''}
     </div>
@@ -930,6 +937,7 @@ class HTMLGenerator:
                 <option value="">Afficher toutes les communes</option>
                 COMMUNES_OPTIONS_PLACEHOLDER
             </select>
+            {'<label for="date-filter" class="date-filter-label">Afficher:</label><select id="date-filter" class="date-selector"><option value="upcoming" selected>À venir</option><option value="all">Toutes les annonces</option></select>' if self.source_type == "Sorties" else ''}
         </div>
         
         <div class="events-grid">
@@ -1158,7 +1166,7 @@ class HTMLGenerator:
             if ' à ' in email_date_formatted:
                 email_date_formatted = email_date_formatted.split(' à ')[0]
             
-            return f"""            <div class="event-card" data-commune="{event.get('commune', '')}">
+            return f"""            <div class="event-card" data-commune="{event.get('commune', '')}" data-event-date="{event.get('date', '')}">
                 <h3>{event['subject']}</h3>
                 {tooltip_html}
                 

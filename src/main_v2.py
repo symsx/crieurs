@@ -77,6 +77,29 @@ def clean_text(text: str) -> str:
     return text.strip()
 
 
+def extract_commune_from_location(location: str) -> str:
+    """Extrait le nom de la commune d'un texte de lieu"""
+    if not location:
+        return ''
+    
+    # Charge la liste des communes depuis le fichier JSON
+    try:
+        communes_file = os.path.join(os.path.dirname(__file__), '..', 'communes_coordinates.json')
+        if os.path.exists(communes_file):
+            with open(communes_file, 'r', encoding='utf-8') as f:
+                communes_data = json.load(f)
+                communes_list = list(communes_data.keys())
+                
+                # Cherche si le nom de la commune est dans le texte du lieu
+                for commune in communes_list:
+                    if commune.lower() in location.lower():
+                        return commune
+    except:
+        pass
+    
+    return ''
+
+
 def clean_libre_expression_text(text: str) -> str:
     """
     Nettoie le texte d'expression libre tout en préservant la structure.
@@ -588,10 +611,8 @@ def process_annonces_source(email: str, password: str, imap_server: str, imap_po
                 # Expression libre: structure simplifiée
                 # Convertit les liens HTTP en liste (ou None si vide)
                 http_links = event.get('http_links', [])
-                # Extrait la commune de types[1]
-                commune = ''
-                if event.get('types') and len(event['types']) > 1:
-                    commune = event['types'][1]
+                # Extrait la commune du lieu pour expression libre
+                commune = extract_commune_from_location(event.get('lieu_detail', ''))
                     
                 event_html = {
                     'subject': event['titre'],
@@ -619,13 +640,16 @@ def process_annonces_source(email: str, password: str, imap_server: str, imap_po
                 
                 # Extrait la commune de types[1]
                 commune = ''
-                if event.get('types') and len(event['types']) > 1:
-                    commune = event['types'][1]
+                try:
+                    if event.get('types') and len(event.get('types', [])) > 1:
+                        commune = event['types'][1]
+                except (IndexError, KeyError, TypeError):
+                    commune = ''
                 
                 event_html = {
                     'subject': event['titre'],
                     'date': event['date_heure_sommaire'],
-                    'location': event['lieu_detail'],
+                    'location': event['lieu_detail'] or (event.get('types', [])[1] if len(event.get('types', [])) > 1 else ''),  # Utilise la commune comme fallback
                     'description': event['descriptif'],
                     'links': links if links else None,
                     'telephone': event['telephone'],
@@ -809,7 +833,7 @@ def main():
         return
     
     try:
-        # Configuration des trois sources
+        # Configuration des quatre sources
         sources = [
             {
                 'name': 'Sorties',
@@ -831,6 +855,13 @@ def main():
                 'output_html': 'solidaire.html',
                 'output_map': 'carte_solidaire.html',
                 'title': 'Annonces Solidaire Crieur'
+            },
+            {
+                'name': 'Annonces Commerciales',
+                'filter': 'crieur-annonces-commerciales',
+                'output_html': 'annonces_commerciales.html',
+                'output_map': 'carte_annonces_commerciales.html',
+                'title': 'Annonces Commerciales Crieur'
             }
         ]
         

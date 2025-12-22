@@ -337,5 +337,137 @@
     "lon": 0.8579252,
     "source": "api",
     "date_added": "2025-12-15"
+  },
+  "Biras": {
+    "lat": 45.28735,
+    "lon": 0.63853,
+    "source": "api",
+    "date_added": "2025-12-16"
+  },
+  "Quinsac": {
+    "lat": 45.4287117,
+    "lon": 0.7046508,
+    "source": "api",
+    "date_added": "2025-12-16"
+  },
+  "Teyjat": {
+    "lat": 45.5858562,
+    "lon": 0.5756546,
+    "source": "api",
+    "date_added": "2025-12-16"
+  },
+  "Saint-Saud-Lacoussiere": {
+    "lat": 45.5436482,
+    "lon": 0.8185259,
+    "source": "api",
+    "date_added": "2025-12-16"
+  },
+  "Saint-Mathieu": {
+    "lat": 45.103555,
+    "lon": 0.8314383,
+    "source": "api",
+    "date_added": "2025-12-16"
+  },
+  "Varaignes": {
+    "lat": 45.597912,
+    "lon": 0.5304664,
+    "source": "api",
+    "date_added": "2025-12-16"
+  },
+  "Saint-Pardoux-la-Riviere": {
+    "lat": 45.4941667,
+    "lon": 0.7466667,
+    "source": "api",
+    "date_added": "2025-12-17"
+  },
+  "Saint-Pierre-de-Côle": {
+    "lat": 45.37066,
+    "lon": 0.7922,
+    "source": "api",
+    "date_added": "2025-12-17"
+  },
+  "Saint-Martial-de-Valette": {
+    "lat": 45.5172972,
+    "lon": 0.6507452,
+    "source": "api",
+    "date_added": "2025-12-17"
+  },
+  "Saint-Pierre-de-Frugie": {
+    "lat": 45.5734979,
+    "lon": 0.99794,
+    "source": "api",
+    "date_added": "2025-12-17"
+  },
+  "Corgnac-sur-l'Isle": {
+    "lat": 45.3767129,
+    "lon": 0.948865,
+    "source": "api",
+    "date_added": "2025-12-17"
+  },
+  "Augignac": {
+    "lat": 45.5920486,
+    "lon": 0.7017889,
+    "source": "api",
+    "date_added": "2025-12-19"
+  },
+  "La Verlanchie 87440 Marval": {
+    "lat": 44.8649602,
+    "lon": 1.2742093,
+    "source": "api",
+    "date_added": "2025-12-19"
+  },
+  "Le-Bourdeix": {
+    "lat": 45.5891667,
+    "lon": 0.6327778,
+    "source": "api",
+    "date_added": "2025-12-19"
+  },
+  "Mareuil-en-Périgord": {
+    "lat": 45.4515308,
+    "lon": 0.4529405,
+    "source": "api",
+    "date_added": "2025-12-19"
+  },
+  "Brantôme": {
+    "lat": 45.3625429,
+    "lon": 0.649408,
+    "source": "api",
+    "date_added": "2025-12-20"
+  },
+  "Saint-Front-sur-Nizonne": {
+    "lat": 45.4822222,
+    "lon": 0.6366667,
+    "source": "api",
+    "date_added": "2025-12-20"
+  },
+  "Abjat-Sur-Bandiat": {
+    "lat": 45.5854222,
+    "lon": 0.757301,
+    "source": "api",
+    "date_added": "2025-12-22"
+  },
+  "Bourdeilles": {
+    "lat": 45.3217639,
+    "lon": 0.5871282,
+    "source": "api",
+    "date_added": "2025-12-22"
+  },
+  "Roussines": {
+    "lat": 45.7234142,
+    "lon": 0.6193012,
+    "source": "api",
+    "date_added": "2025-12-22"
+  },
+  "Bussière-Galant": {
+    "lat": 45.6268033,
+    "lon": 1.0362738,
+    "source": "api",
+    "date_added": "2025-12-22"
+  },
+  "ROCHECHOUART": {
+    "lat": 45.8219757,
+    "lon": 0.8198124,
+    "source": "api",
+    "date_added": "2025-12-22"
   }
 }

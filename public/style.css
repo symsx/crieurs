@@ -262,6 +262,11 @@ header p {
     font-size: 1em;
 }
 
+/* Séparation visuelle entre les deux groupes de filtres */
+.date-filter-label {
+    margin-left: 20px;
+}
+
 .commune-selector {
     padding: 10px 15px;
     border: 2px solid var(--gco-border);
@@ -286,6 +291,31 @@ header p {
     box-shadow: 0 0 0 3px rgba(107, 125, 30, 0.1);
 }
 
+/* Même style pour le filtre temporel */
+.date-selector {
+    padding: 10px 15px;
+    border: 2px solid var(--gco-border);
+    border-radius: 8px;
+    font-family: 'Ysabeau Office', sans-serif;
+    font-size: 1em;
+    color: var(--text-primary);
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 250px;
+}
+
+.date-selector:hover {
+    border-color: var(--gco-green);
+    box-shadow: 0 2px 8px rgba(107, 125, 30, 0.1);
+}
+
+.date-selector:focus {
+    outline: none;
+    border-color: var(--gco-green);
+    box-shadow: 0 0 0 3px rgba(107, 125, 30, 0.1);
+}
+
 @media (max-width: 768px) {
     .filter-section {
         flex-direction: column;
@@ -296,7 +326,8 @@ header p {
         width: 100%;
     }
     
-    .commune-selector {
+    .commune-selector,
+    .date-selector {
         min-width: auto;
         width: 100%;
     }

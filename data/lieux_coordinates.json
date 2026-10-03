@@ -469,5 +469,1589 @@
     "lon": 0.8198124,
     "source": "api",
     "date_added": "2025-12-22"
+  },
+  "Oradour-sur-Vayres": {
+    "lat": 45.7331047,
+    "lon": 0.8632863,
+    "source": "api",
+    "date_added": "2025-12-24"
+  },
+  "Maisonnais-sur-Tardoire": {
+    "lat": 45.7130556,
+    "lon": 0.6905556,
+    "source": "api",
+    "date_added": "2025-12-24"
+  },
+  "Saint-Martin-de-Fressengeas": {
+    "lat": 45.4429254,
+    "lon": 0.8447834,
+    "source": "api",
+    "date_added": "2025-12-27"
+  },
+  "Villars": {
+    "lat": 45.4202981,
+    "lon": 0.7542978,
+    "source": "api",
+    "date_added": "2025-12-27"
+  },
+  "Place du Château 16220 Montbron": {
+    "lat": 45.6680543,
+    "lon": 0.497154,
+    "source": "api",
+    "date_added": "2025-12-27"
+  },
+  "Jumilhac-le-Grand": {
+    "lat": 45.4936287,
+    "lon": 1.0619624,
+    "source": "api",
+    "date_added": "2025-12-28"
+  },
+  "Javerlhac-et-la-Chapelle-Saint-Robert": {
+    "lat": 45.5705556,
+    "lon": 0.5613889,
+    "source": "api",
+    "date_added": "2025-12-28"
+  },
+  "Saint-Priest-les-Fougères": {
+    "lat": 45.5430043,
+    "lon": 1.0101651,
+    "source": "api",
+    "date_added": "2025-12-29"
+  },
+  "Saint-Barthélémy-de-Bussière": {
+    "lat": 45.6400256,
+    "lon": 0.7547903,
+    "source": "api",
+    "date_added": "2026-01-01"
+  },
+  "cherche": {
+    "lat": 47.9124321,
+    "lon": 3.3268012,
+    "source": "api",
+    "date_added": "2026-01-01"
+  },
+  "776 Route du Notaire Desmaison 24340 Mareuil en Périgord": {
+    "lat": 45.4466433,
+    "lon": 0.4416136,
+    "source": "api",
+    "date_added": "2026-01-02"
+  },
+  "Eyzerac": {
+    "lat": 45.3883953,
+    "lon": 0.9203253,
+    "source": "api",
+    "date_added": "2026-01-02"
+  },
+  "Excideuil": {
+    "lat": 45.336641,
+    "lon": 1.0490102,
+    "source": "api",
+    "date_added": "2026-01-04"
+  },
+  "Saint-Martin-le-Pin": {
+    "lat": 45.555929,
+    "lon": 0.6114632,
+    "source": "api",
+    "date_added": "2026-01-04"
+  },
+  "Busserolles": {
+    "lat": 45.6757519,
+    "lon": 0.6424738,
+    "source": "api",
+    "date_added": "2026-01-05"
+  },
+  "Saint-Front-la-Riviere": {
+    "lat": 45.4730556,
+    "lon": 0.7272222,
+    "source": "api",
+    "date_added": "2026-01-05"
+  },
+  "Route des Etangs 87500 Ladignac-le-Long": {
+    "lat": 45.6192559,
+    "lon": 1.1288157,
+    "source": "api",
+    "date_added": "2026-01-08"
+  },
+  "Gout-Rossignol": {
+    "lat": 45.4141667,
+    "lon": 0.385,
+    "source": "api",
+    "date_added": "2026-01-08"
+  },
+  "51 Rue du Général Lamy 24800 Thiviers": {
+    "lat": 45.4169971,
+    "lon": 0.921364,
+    "source": "api",
+    "date_added": "2026-01-08"
+  },
+  "Lempzours": {
+    "lat": 45.36126,
+    "lon": 0.81813,
+    "source": "api",
+    "date_added": "2026-01-08"
+  },
+  "PAGEAS": {
+    "lat": 45.6777011,
+    "lon": 0.9997012,
+    "source": "api",
+    "date_added": "2026-01-09"
+  },
+  "LIMOGES": {
+    "lat": 45.8354243,
+    "lon": 1.2644847,
+    "source": "api",
+    "date_added": "2026-01-10"
+  },
+  "Verteillac": {
+    "lat": 45.3473878,
+    "lon": 0.3662938,
+    "source": "api",
+    "date_added": "2026-01-23"
+  },
+  "12 Rue des Fontaines 87230 Champsac": {
+    "lat": 45.7186832,
+    "lon": 0.9648859,
+    "source": "api",
+    "date_added": "2026-01-13"
+  },
+  "Saint-Pardoux-la-Rivière": {
+    "lat": 45.4941667,
+    "lon": 0.7466667,
+    "source": "api",
+    "date_added": "2026-01-13"
+  },
+  "2 Rue Puyjoli de Meyjounissas 24310 Brantôme en Périgord": {
+    "lat": 45.3639172,
+    "lon": 0.6486706,
+    "source": "api",
+    "date_added": "2026-01-13"
+  },
+  "Firbeix": {
+    "lat": 45.6008981,
+    "lon": 0.9755872,
+    "source": "api",
+    "date_added": "2026-01-14"
+  },
+  "40 Rue Jean Jaures 87600 Rochechouart": {
+    "lat": 45.8277529,
+    "lon": 0.8233657,
+    "source": "api",
+    "date_added": "2026-01-15"
+  },
+  "Rue Alfrédo Raynaud 24470 Saint-Pardoux-la-Rivière": {
+    "lat": 45.492493,
+    "lon": 0.7449875,
+    "source": "api",
+    "date_added": "2026-01-15"
+  },
+  "Ladignac-le-long": {
+    "lat": 45.5833357,
+    "lon": 1.1146004,
+    "source": "api",
+    "date_added": "2026-01-16"
+  },
+  "191 Chemin des Bourdons 24800 Thiviers": {
+    "lat": 45.4286793,
+    "lon": 0.8860618,
+    "source": "api",
+    "date_added": "2026-01-17"
+  },
+  "Ladignac-le-Long": {
+    "lat": 45.5833357,
+    "lon": 1.1146004,
+    "source": "api",
+    "date_added": "2026-01-17"
+  },
+  "La-Chapelle-Montbrandeix": {
+    "lat": 45.6461408,
+    "lon": 0.848565,
+    "source": "api",
+    "date_added": "2026-01-17"
+  },
+  "PALLUAUD": {
+    "lat": 45.348474,
+    "lon": 0.2491546,
+    "source": "api",
+    "date_added": "2026-01-17"
+  },
+  "Sarrazac": {
+    "lat": 45.4372222,
+    "lon": 1.0305556,
+    "source": "api",
+    "date_added": "2026-01-18"
+  },
+  "Rue des Alouettes 24360 Varaignes": {
+    "lat": 45.6097355,
+    "lon": 0.5391977,
+    "source": "api",
+    "date_added": "2026-01-18"
+  },
+  "19 Rue Pierre Sémard 24800 Thiviers": {
+    "lat": 45.4182948,
+    "lon": 0.9206404,
+    "source": "api",
+    "date_added": "2026-01-18"
+  },
+  "Nanthiat": {
+    "lat": 45.4079567,
+    "lon": 0.9858037,
+    "source": "api",
+    "date_added": "2026-01-20"
+  },
+  "Brigueuil": {
+    "lat": 45.9536756,
+    "lon": 0.8601435,
+    "source": "api",
+    "date_added": "2026-01-22"
+  },
+  "213 Rue du Bourdon des Pèlerins 24450 Saint-Pierre-de-Frugie": {
+    "lat": 45.5734269,
+    "lon": 0.9984845,
+    "source": "api",
+    "date_added": "2026-01-22"
+  },
+  "Saint-Jean-de-Côle": {
+    "lat": 45.4212284,
+    "lon": 0.8384225,
+    "source": "api",
+    "date_added": "2026-01-22"
+  },
+  "2 place Aimé Césaire 87000 Limoges": {
+    "lat": 45.8261335,
+    "lon": 1.2592882,
+    "source": "api",
+    "date_added": "2026-01-22"
+  },
+  "7 avenue Jean Gagnant 87000 Limoges": {
+    "lat": 45.8336899,
+    "lon": 1.2722471,
+    "source": "api",
+    "date_added": "2026-01-22"
+  },
+  "44 Rue du Général Lamy 24800 Thiviers": {
+    "lat": 45.4172647,
+    "lon": 0.9219761,
+    "source": "api",
+    "date_added": "2026-01-22"
+  },
+  "801 Route du Notaire Desmaison 24340 Mareuil en Périgord": {
+    "lat": 45.4466433,
+    "lon": 0.4416136,
+    "source": "api",
+    "date_added": "2026-01-22"
+  },
+  "Place Naud 16220 Montbron": {
+    "lat": 45.6680015,
+    "lon": 0.5007997,
+    "source": "api",
+    "date_added": "2026-01-22"
+  },
+  "Sarlande": {
+    "lat": 45.4508276,
+    "lon": 1.1166957,
+    "source": "api",
+    "date_added": "2026-01-22"
+  },
+  "Rue du Moulin 24360 Varaignes": {
+    "lat": 45.5968787,
+    "lon": 0.532419,
+    "source": "api",
+    "date_added": "2026-01-22"
+  },
+  "Rue de la Libération 24360 Piégut-Pluviers": {
+    "lat": 45.6203855,
+    "lon": 0.6962563,
+    "source": "api",
+    "date_added": "2026-01-23"
+  },
+  "Vayres": {
+    "lat": 45.758648,
+    "lon": 0.8115433,
+    "source": "api",
+    "date_added": "2026-04-01"
+  },
+  "Château l'Evêque": {
+    "lat": 45.2452966,
+    "lon": 0.6861762,
+    "source": "api",
+    "date_added": "2026-01-25"
+  },
+  "Saint-Paul-la-Roche": {
+    "lat": 45.4777414,
+    "lon": 0.9988587,
+    "source": "api",
+    "date_added": "2026-01-27"
+  },
+  "Avenue de la Garenne 24300 Javerlhac-et-la-Chapelle-Saint-Robert": {
+    "lat": 45.5707816,
+    "lon": 0.5606583,
+    "source": "api",
+    "date_added": "2026-01-27"
+  },
+  "1658 Route de Cussac 87150 Oradour-sur-Vayres": {
+    "lat": 45.7209978,
+    "lon": 0.8639459,
+    "source": "api",
+    "date_added": "2026-01-27"
+  },
+  "41bis Rue des Alliés 24360 Piégut-Pluviers": {
+    "lat": 45.6247309,
+    "lon": 0.6868878,
+    "source": "api",
+    "date_added": "2026-01-27"
+  },
+  "Dournazac": {
+    "lat": 45.6246714,
+    "lon": 0.9173286,
+    "source": "api",
+    "date_added": "2026-01-27"
+  },
+  "Saint-Pardoux-la-Rivière 24470": {
+    "lat": 45.4941667,
+    "lon": 0.7466667,
+    "source": "api",
+    "date_added": "2026-01-28"
+  },
+  "Rivière": {
+    "lat": 50.2337131,
+    "lon": 2.6853915,
+    "source": "api",
+    "date_added": "2026-04-23"
+  },
+  "Champagnac-de-Belair": {
+    "lat": 45.3939501,
+    "lon": 0.7004966,
+    "source": "api",
+    "date_added": "2026-01-30"
+  },
+  "Châtres": {
+    "lat": 45.1869597,
+    "lon": 1.2038911,
+    "source": "api",
+    "date_added": "2026-02-02"
+  },
+  "Ecocentre": {
+    "lat": 45.2764908,
+    "lon": 5.8882069,
+    "source": "api",
+    "date_added": "2026-02-18"
+  },
+  "Paussac-et-Saint-Vivien": {
+    "lat": 45.3482252,
+    "lon": 0.5392852,
+    "source": "api",
+    "date_added": "2026-02-03"
+  },
+  "Rue des Ecoles 24300 Augignac": {
+    "lat": 45.5938419,
+    "lon": 0.7019279,
+    "source": "api",
+    "date_added": "2026-02-04"
+  },
+  "2 Place de la République 24360 Piégut-Pluviers": {
+    "lat": 45.6225009,
+    "lon": 0.6895774,
+    "source": "api",
+    "date_added": "2026-02-05"
+  },
+  "Pageas": {
+    "lat": 45.6777011,
+    "lon": 0.9997012,
+    "source": "api",
+    "date_added": "2026-02-06"
+  },
+  "Montemboeuf": {
+    "lat": 45.7766948,
+    "lon": 0.5534285,
+    "source": "api",
+    "date_added": "2026-02-06"
+  },
+  "14 Chemin de la Manufacture 24300 Nontron": {
+    "lat": 45.5173877,
+    "lon": 0.6845263,
+    "source": "api",
+    "date_added": "2026-02-10"
+  },
+  "Place de l'Ancien Presbytère 24360 Saint-Estèphe": {
+    "lat": 45.5920321,
+    "lon": 0.663471,
+    "source": "api",
+    "date_added": "2026-02-10"
+  },
+  "Saint-Barthélemy-de-Bussière": {
+    "lat": 45.6400256,
+    "lon": 0.7547903,
+    "source": "api",
+    "date_added": "2026-02-13"
+  },
+  "Les Eyzies": {
+    "lat": 44.9397096,
+    "lon": 1.0299389,
+    "source": "api",
+    "date_added": "2026-02-13"
+  },
+  "51 Rue du Communal 24450 Saint-Pierre-de-Frugie": {
+    "lat": 45.6043739,
+    "lon": 1.0032541,
+    "source": "api",
+    "date_added": "2026-02-13"
+  },
+  "Saint-Yrieix-la-Perche": {
+    "lat": 45.5335103,
+    "lon": 1.2583483,
+    "source": "api",
+    "date_added": "2026-02-13"
+  },
+  "19 Rue Pierre Sémard 24800 Thiviers (L'HanGare)": {
+    "lat": 45.41442,
+    "lon": 0.9194243,
+    "source": "api",
+    "date_added": "2026-02-13"
+  },
+  "47 Rue du Général Lamy 24800 Thiviers": {
+    "lat": 45.4168101,
+    "lon": 0.921348,
+    "source": "api",
+    "date_added": "2026-02-16"
+  },
+  "Adoption": {
+    "lat": 45.7587025,
+    "lon": 4.8441712,
+    "source": "api",
+    "date_added": "2026-02-18"
+  },
+  "11 Route du Maine Chabrol 16320 Édon": {
+    "lat": 45.471732,
+    "lon": 0.3428857,
+    "source": "api",
+    "date_added": "2026-02-19"
+  },
+  "Etouars": {
+    "lat": 45.60152,
+    "lon": 0.62771,
+    "source": "api",
+    "date_added": "2026-02-19"
+  },
+  "MARTHON": {
+    "lat": 45.6125649,
+    "lon": 0.4445004,
+    "source": "api",
+    "date_added": "2026-02-20"
+  },
+  "Place Salvador Allende 87230 Châlus": {
+    "lat": 45.6518429,
+    "lon": 0.9804461,
+    "source": "api",
+    "date_added": "2026-02-21"
+  },
+  "14 Avenue Léontine Vignerie 87200 Saint-Junien": {
+    "lat": 45.8892862,
+    "lon": 0.8939082,
+    "source": "api",
+    "date_added": "2026-02-22"
+  },
+  "Rochechouart": {
+    "lat": 45.8219757,
+    "lon": 0.8198124,
+    "source": "api",
+    "date_added": "2026-02-22"
+  },
+  "Saint-Front-la-Rivière": {
+    "lat": 45.4730556,
+    "lon": 0.7272222,
+    "source": "api",
+    "date_added": "2026-02-23"
+  },
+  "Rue de la Salle des Fêtes 24340 La Rochebeaucourt-et-Argentine": {
+    "lat": 45.4838449,
+    "lon": 0.3785896,
+    "source": "api",
+    "date_added": "2026-02-23"
+  },
+  "15 Rue Bodin 24000 Périgueux": {
+    "lat": 45.1868215,
+    "lon": 0.7172762,
+    "source": "api",
+    "date_added": "2026-02-23"
+  },
+  "125 Rue du Tacot 24520 Lamonzie-Montastruc": {
+    "lat": 44.8940683,
+    "lon": 0.5910212,
+    "source": "api",
+    "date_added": "2026-02-25"
+  },
+  "La Monnerie 87150 Oradour-sur-Vayres": {
+    "lat": 45.7147472,
+    "lon": 0.8577848,
+    "source": "api",
+    "date_added": "2026-02-25"
+  },
+  "61 Impasse des Jardins 24390 Tourtoirac": {
+    "lat": 45.2500048,
+    "lon": 1.0760105,
+    "source": "api",
+    "date_added": "2026-02-25"
+  },
+  "Place PAUL BERT 24300 Nontron Auditorium": {
+    "lat": 45.5293074,
+    "lon": 0.6622535,
+    "source": "api",
+    "date_added": "2026-03-03"
+  },
+  "LE PALACE Rue Bodin 24000 Périgueux": {
+    "lat": 45.1868215,
+    "lon": 0.7172762,
+    "source": "api",
+    "date_added": "2026-03-03"
+  },
+  "150 Route des Chênes Verts 24420 Sorges et Ligueux en Périgord": {
+    "lat": 45.3029263,
+    "lon": 0.8841324,
+    "source": "api",
+    "date_added": "2026-03-03"
+  },
+  "5 Place de la Jeunesse 24310 Brantôme en Périgord": {
+    "lat": 45.3587549,
+    "lon": 0.656267,
+    "source": "api",
+    "date_added": "2026-03-03"
+  },
+  "Place Simone Veil 24530 Quinsac": {
+    "lat": 45.4287353,
+    "lon": 0.7037077,
+    "source": "api",
+    "date_added": "2026-03-03"
+  },
+  "1 Allée du Chateau 87110 Le Vigen": {
+    "lat": 45.7232859,
+    "lon": 1.3014981,
+    "source": "api",
+    "date_added": "2026-03-03"
+  },
+  "le lindois": {
+    "lat": 45.7457227,
+    "lon": 0.5913428,
+    "source": "api",
+    "date_added": "2026-03-03"
+  },
+  "Bonnat": {
+    "lat": 46.3276506,
+    "lon": 1.9039121,
+    "source": "api",
+    "date_added": "2026-03-03"
+  },
+  "Vienne": {
+    "lat": 46.6121166,
+    "lon": 0.465407,
+    "source": "api",
+    "date_added": "2026-03-14"
+  },
+  "25 Avenue Georges Guingouin 87150 Oradour-sur-Vayres": {
+    "lat": 45.7282337,
+    "lon": 0.8656472,
+    "source": "api",
+    "date_added": "2026-03-07"
+  },
+  "182 Rue Saint-Honoré 75001 Paris": {
+    "lat": 48.8624129,
+    "lon": 2.3387937,
+    "source": "api",
+    "date_added": "2026-03-07"
+  },
+  "Saint-Barthélemy": {
+    "lat": 17.9036287,
+    "lon": -62.8115292,
+    "source": "api",
+    "date_added": "2026-03-07"
+  },
+  "Saint-Victor": {
+    "lat": 45.26311,
+    "lon": 0.43801,
+    "source": "api",
+    "date_added": "2026-03-07"
+  },
+  "Nantheuil": {
+    "lat": 45.4134464,
+    "lon": 0.9449856,
+    "source": "api",
+    "date_added": "2026-03-07"
+  },
+  "Sorges": {
+    "lat": 45.2929355,
+    "lon": 0.8456403,
+    "source": "api",
+    "date_added": "2026-03-07"
+  },
+  "Videix": {
+    "lat": 45.79109,
+    "lon": 0.73418,
+    "source": "api",
+    "date_added": "2026-03-07"
+  },
+  "2938 Route des Paroisses 24450 La Coquille": {
+    "lat": 45.5350151,
+    "lon": 0.944204,
+    "source": "api",
+    "date_added": "2026-03-09"
+  },
+  "La Meyze": {
+    "lat": 45.6163333,
+    "lon": 1.2141383,
+    "source": "api",
+    "date_added": "2026-03-09"
+  },
+  "Ruelle du 19 Mars 1962 24360 Champniers-et-Reilhac": {
+    "lat": 45.6722997,
+    "lon": 0.7306652,
+    "source": "api",
+    "date_added": "2026-03-11"
+  },
+  "73 Avenue de Limoges 24450 La Coquille": {
+    "lat": 45.5562439,
+    "lon": 0.9778582,
+    "source": "api",
+    "date_added": "2026-03-13"
+  },
+  "Cubjac-Auvézère-Val d'Ans": {
+    "lat": 45.23245,
+    "lon": 0.9642404,
+    "source": "api",
+    "date_added": "2026-03-13"
+  },
+  "79 Rue du Presbytère 24360 Bussière-Badil": {
+    "lat": 45.6513604,
+    "lon": 0.6063463,
+    "source": "api",
+    "date_added": "2026-03-13"
+  },
+  "Lussas-et-Nontronneau": {
+    "lat": 45.5063889,
+    "lon": 0.5844444,
+    "source": "api",
+    "date_added": "2026-03-13"
+  },
+  "Saint-Romain-et-Saint-Clément": {
+    "lat": 45.4242989,
+    "lon": 0.862704,
+    "source": "api",
+    "date_added": "2026-03-14"
+  },
+  "Mareuil": {
+    "lat": 45.4466433,
+    "lon": 0.4416136,
+    "source": "api",
+    "date_added": "2026-03-19"
+  },
+  "Route du Dolmen 24800 Saint-Jory-de-Chalais": {
+    "lat": 45.5007357,
+    "lon": 0.900574,
+    "source": "api",
+    "date_added": "2026-03-19"
+  },
+  "Mialet": {
+    "lat": 45.550518,
+    "lon": 0.9045666,
+    "source": "api",
+    "date_added": "2026-03-19"
+  },
+  "Périgueux": {
+    "lat": 45.1840214,
+    "lon": 0.7160392,
+    "source": "api",
+    "date_added": "2026-03-19"
+  },
+  "Saint-Cyr": {
+    "lat": 45.8002732,
+    "lon": 0.9585652,
+    "source": "api",
+    "date_added": "2026-03-19"
+  },
+  "L'HanGare, 19 Rue Pierre Sémard 24800 Thiviers": {
+    "lat": 45.418186,
+    "lon": 0.9205004,
+    "source": "api",
+    "date_added": "2026-03-19"
+  },
+  "Allée de la Source Froide 24450 Saint-Pierre-de-Frugie": {
+    "lat": 45.5882424,
+    "lon": 0.982098,
+    "source": "api",
+    "date_added": "2026-03-19"
+  },
+  "Place PAUL BERT 24300 Nontron": {
+    "lat": 45.5258651,
+    "lon": 0.6604273,
+    "source": "api",
+    "date_added": "2026-03-19"
+  },
+  "perigord": {
+    "lat": 45.26311,
+    "lon": 0.43801,
+    "source": "api",
+    "date_added": "2026-04-01"
+  },
+  "4 Avenue du Général Leclerc 24800 Thiviers": {
+    "lat": 45.4132533,
+    "lon": 0.9187079,
+    "source": "api",
+    "date_added": "2026-03-20"
+  },
+  "11 Place Naud 16220 Montbron": {
+    "lat": 45.6680015,
+    "lon": 0.5007997,
+    "source": "api",
+    "date_added": "2026-03-24"
+  },
+  "Rue du Dolmen 24310 Brantôme en Périgord": {
+    "lat": 45.3634472,
+    "lon": 0.6653926,
+    "source": "api",
+    "date_added": "2026-03-24"
+  },
+  "Négrondes": {
+    "lat": 45.3452711,
+    "lon": 0.8646705,
+    "source": "api",
+    "date_added": "2026-03-24"
+  },
+  "Salle Omnisports de Javerlhac 24300\nImpasse de la Florentine": {
+    "lat": 48.0106862,
+    "lon": 0.2154481,
+    "source": "api",
+    "date_added": "2026-03-24"
+  },
+  "Garat": {
+    "lat": 45.6266147,
+    "lon": 0.2635024,
+    "source": "api",
+    "date_added": "2026-03-24"
+  },
+  "61 Rue Eugène Leroy 24450 La Coquille": {
+    "lat": 45.5361968,
+    "lon": 0.9773903,
+    "source": "api",
+    "date_added": "2026-03-31"
+  },
+  "Eglise ND de l'Assomption Rue Notre Dame 24800 Thiviers": {
+    "lat": 45.41442,
+    "lon": 0.9194243,
+    "source": "api",
+    "date_added": "2026-03-31"
+  },
+  "3 Espace Rodolphe Charles Césard 24800 Thiviers": {
+    "lat": 45.4153373,
+    "lon": 0.9184894,
+    "source": "api",
+    "date_added": "2026-03-31"
+  },
+  "17 Rue Antoine Gadaud 24000 Périgueux": {
+    "lat": 45.1873544,
+    "lon": 0.7168023,
+    "source": "api",
+    "date_added": "2026-03-31"
+  },
+  "Rue du Centre 16220 Montbron": {
+    "lat": 45.6596125,
+    "lon": 0.5309796,
+    "source": "api",
+    "date_added": "2026-03-31"
+  },
+  "Massignac": {
+    "lat": 45.7792465,
+    "lon": 0.6542594,
+    "source": "api",
+    "date_added": "2026-03-31"
+  },
+  "333 Route de la Doue 24360 Saint-Estèphe": {
+    "lat": 45.58767,
+    "lon": 0.672657,
+    "source": "api",
+    "date_added": "2026-03-31"
+  },
+  "Saint-Mesmin": {
+    "lat": 45.352683,
+    "lon": 1.2052684,
+    "source": "api",
+    "date_added": "2026-03-31"
+  },
+  "Salle Omnisports de Javerlhac 24300 - Impasse de la Florentine\n\nAvec joie de vous retrouver pour cette expérience \"Entre En Corps\" \nBach Liên": {
+    "lat": 43.6689426,
+    "lon": 3.9675012,
+    "source": "api",
+    "date_added": "2026-03-31"
+  },
+  "Tiers Lieu l'HanGare, 19 Rue Pierre Sémard 24000 Périgueux": {
+    "lat": 45.1840214,
+    "lon": 0.7160392,
+    "source": "api",
+    "date_added": "2026-04-03"
+  },
+  "487 Route des Diligences 24470 Saint-Saud-Lacoussière": {
+    "lat": 45.5179705,
+    "lon": 0.8204223,
+    "source": "api",
+    "date_added": "2026-04-03"
+  },
+  "138 Chemin des Laurières 24450 Saint-Priest-les-Fougères": {
+    "lat": 45.5451413,
+    "lon": 1.0526121,
+    "source": "api",
+    "date_added": "2026-04-03"
+  },
+  "48 Grande Rue de la Barre 24470 Saint-Pardoux-la-Rivière": {
+    "lat": 45.4927511,
+    "lon": 0.7465141,
+    "source": "api",
+    "date_added": "2026-04-03"
+  },
+  "11 Place Alfred d'Agard 24300 Nontron": {
+    "lat": 45.5288958,
+    "lon": 0.6619515,
+    "source": "api",
+    "date_added": "2026-04-03"
+  },
+  "Périgord Nontronnais": {
+    "lat": 45.577605,
+    "lon": 0.6587539,
+    "source": "api",
+    "date_added": "2026-04-03"
+  },
+  "Champagnac-la-rivière": {
+    "lat": 45.7101885,
+    "lon": 0.9132586,
+    "source": "api",
+    "date_added": "2026-04-03"
+  },
+  "39, rue de la libération 24360 Piégut-Pluviers": {
+    "lat": 45.6203855,
+    "lon": 0.6962563,
+    "source": "api",
+    "date_added": "2026-04-08"
+  },
+  "10 Rue Principale 87440 Saint-Mathieu": {
+    "lat": 45.70671,
+    "lon": 0.7588122,
+    "source": "api",
+    "date_added": "2026-04-08"
+  },
+  "401 Chemin de la Croix Ferrée 24360 Saint-Estèphe": {
+    "lat": 45.595055,
+    "lon": 0.666294,
+    "source": "api",
+    "date_added": "2026-04-08"
+  },
+  "Chemin des Laurières 24450 Saint-Priest-les-Fougères": {
+    "lat": 45.5451413,
+    "lon": 1.0526121,
+    "source": "api",
+    "date_added": "2026-04-11"
+  },
+  "4 Place de la Résistance 24470 Saint-Saud-Lacoussière": {
+    "lat": 45.5439499,
+    "lon": 0.8184837,
+    "source": "api",
+    "date_added": "2026-04-11"
+  },
+  "Place du Champ de Foire 24340 Mareuil en Périgord": {
+    "lat": 45.4926552,
+    "lon": 0.4430211,
+    "source": "api",
+    "date_added": "2026-04-11"
+  },
+  "Route de Piégut 16220 Montbron": {
+    "lat": 45.6541448,
+    "lon": 0.5170375,
+    "source": "api",
+    "date_added": "2026-04-11"
+  },
+  "Saint-Bazile": {
+    "lat": 45.7322214,
+    "lon": 0.827563,
+    "source": "api",
+    "date_added": "2026-04-11"
+  },
+  "824 Route du Moulin 24450 Saint-Pierre-de-Frugie": {
+    "lat": 45.5674949,
+    "lon": 1.0196308,
+    "source": "api",
+    "date_added": "2026-04-16"
+  },
+  "jardin de la Mère Cucu - 11 Route du Maine Chabrol 16320 Édon": {
+    "lat": 45.4884707,
+    "lon": 0.3535991,
+    "source": "api",
+    "date_added": "2026-04-16"
+  },
+  "12 Avenue Georges Pompidou 24000 Périgueux": {
+    "lat": 45.1906899,
+    "lon": 0.7249718,
+    "source": "api",
+    "date_added": "2026-04-16"
+  },
+  "71 Cours Edouard Vaillant 33300 Bordeaux": {
+    "lat": 44.8614036,
+    "lon": -0.5588245,
+    "source": "api",
+    "date_added": "2026-04-16"
+  },
+  "17 Rue du Chapiteau 87150 Cussac": {
+    "lat": 45.7070155,
+    "lon": 0.8523835,
+    "source": "api",
+    "date_added": "2026-04-16"
+  },
+  "6 Rue du Marché 24160 Génis": {
+    "lat": 45.3251329,
+    "lon": 1.1639009,
+    "source": "api",
+    "date_added": "2026-04-16"
+  },
+  "Impasse de la Sapinière 24450 Saint-Pierre-de-Frugie": {
+    "lat": 45.5842963,
+    "lon": 1.0011013,
+    "source": "api",
+    "date_added": "2026-04-16"
+  },
+  "Atelier m'zel soleil 3 Impasse de l'Usine 16220 Montbron": {
+    "lat": 45.6664226,
+    "lon": 0.4994516,
+    "source": "api",
+    "date_added": "2026-04-20"
+  },
+  "Avenue du Général Leclerc 24800 Thiviers": {
+    "lat": 45.4122323,
+    "lon": 0.9189447,
+    "source": "api",
+    "date_added": "2026-04-20"
+  },
+  "cubjac": {
+    "lat": 45.2257379,
+    "lon": 0.9327165,
+    "source": "api",
+    "date_added": "2026-04-20"
+  },
+  "Marthon": {
+    "lat": 45.6125649,
+    "lon": 0.4445004,
+    "source": "api",
+    "date_added": "2026-04-20"
+  },
+  "Place des Ecoles 16310 Massignac": {
+    "lat": 45.7804227,
+    "lon": 0.6531028,
+    "source": "api",
+    "date_added": "2026-04-23"
+  },
+  "267 Grand'Rue 24800 Saint-Martin-de-Fressengeas": {
+    "lat": 45.4434879,
+    "lon": 0.8446048,
+    "source": "api",
+    "date_added": "2026-04-23"
+  },
+  "Rue des Fontaines 87230 Champsac": {
+    "lat": 45.7187875,
+    "lon": 0.9649599,
+    "source": "api",
+    "date_added": "2026-04-23"
+  },
+  "Place Alfred d'Agard 24300 Nontron": {
+    "lat": 45.5292434,
+    "lon": 0.6622644,
+    "source": "api",
+    "date_added": "2026-04-23"
+  },
+  "Rue Notre Dame 24800 Thiviers": {
+    "lat": 45.4144396,
+    "lon": 0.9216603,
+    "source": "api",
+    "date_added": "2026-04-23"
+  },
+  "Chéronnac": {
+    "lat": 45.7585482,
+    "lon": 0.7637109,
+    "source": "api",
+    "date_added": "2026-04-23"
+  },
+  "SARRAZAC": {
+    "lat": 45.4372222,
+    "lon": 1.0305556,
+    "source": "api",
+    "date_added": "2026-04-23"
+  },
+  "11 Place place Alfred Agard 24300 Nontron": {
+    "lat": 45.5293074,
+    "lon": 0.6622535,
+    "source": "api",
+    "date_added": "2026-04-25"
+  },
+  "10 Place du Canton 24300 Nontron": {
+    "lat": 45.5283579,
+    "lon": 0.6602864,
+    "source": "api",
+    "date_added": "2026-04-25"
+  },
+  "Saint-Junien": {
+    "lat": 45.8872222,
+    "lon": 0.9011111,
+    "source": "api",
+    "date_added": "2026-05-01"
+  },
+  "Salle des Fêtes 24340 La Rochebeaucourt-et-Argentine": {
+    "lat": 45.4838449,
+    "lon": 0.3785896,
+    "source": "api",
+    "date_added": "2026-05-01"
+  },
+  "salle des fêtes 24300 Teyjat": {
+    "lat": 45.5858562,
+    "lon": 0.5756546,
+    "source": "api",
+    "date_added": "2026-05-01"
+  },
+  "449 Route du Breuil 24310 Bourdeilles": {
+    "lat": 45.326244,
+    "lon": 0.5672628,
+    "source": "api",
+    "date_added": "2026-05-01"
+  },
+  "169 Route de la Haute Dronne 24470 Saint-Pardoux-la-Rivière": {
+    "lat": 45.4992183,
+    "lon": 0.7481675,
+    "source": "api",
+    "date_added": "2026-05-01"
+  },
+  "Saint-Sulpice-d'Excideuil": {
+    "lat": 45.3902778,
+    "lon": 1.0075,
+    "source": "api",
+    "date_added": "2026-05-01"
+  },
+  "Perigord": {
+    "lat": 45.26311,
+    "lon": 0.43801,
+    "source": "api",
+    "date_added": "2026-05-18"
+  },
+  "Perche": {
+    "lat": 48.2068856,
+    "lon": 0.9123136,
+    "source": "api",
+    "date_added": "2026-06-01"
+  },
+  "2 Rue de Loménie 87500 Saint-Yrieix-la-Perche": {
+    "lat": 45.5089498,
+    "lon": 1.2028546,
+    "source": "api",
+    "date_added": "2026-05-05"
+  },
+  "Impasse du Domaine 24360 Soudat": {
+    "lat": 45.6182844,
+    "lon": 0.5879555,
+    "source": "api",
+    "date_added": "2026-05-05"
+  },
+  "Lanouaille": {
+    "lat": 45.392287,
+    "lon": 1.1383271,
+    "source": "api",
+    "date_added": "2026-05-05"
+  },
+  "Le Sonneur bar asso 25 Rue D'angoulême 16220 Montbron": {
+    "lat": 45.6664226,
+    "lon": 0.4994516,
+    "source": "api",
+    "date_added": "2026-05-05"
+  },
+  "SORGES": {
+    "lat": 45.3074599,
+    "lon": 0.8722971,
+    "source": "api",
+    "date_added": "2026-05-05"
+  },
+  "les Eyzies": {
+    "lat": 44.9397096,
+    "lon": 1.0299389,
+    "source": "api",
+    "date_added": "2026-05-05"
+  },
+  "Capdrot": {
+    "lat": 44.681197,
+    "lon": 0.9209994,
+    "source": "api",
+    "date_added": "2026-05-07"
+  },
+  "Avenue du Plan d'Eau 87230 Bussière-Galant": {
+    "lat": 45.6099813,
+    "lon": 1.0304928,
+    "source": "api",
+    "date_added": "2026-05-07"
+  },
+  "Saint-Vincent-Jalmoutiers": {
+    "lat": 45.20251,
+    "lon": 0.1923585,
+    "source": "api",
+    "date_added": "2026-05-07"
+  },
+  "40 Place Puyrajou 24470 Champs-Romain. salle des fêtes": {
+    "lat": 44.0852553,
+    "lon": 3.0615354,
+    "source": "api",
+    "date_added": "2026-05-07"
+  },
+  "Avenue Léon Sireyjol 24470 Saint-Pardoux-la-Rivière": {
+    "lat": 45.4942124,
+    "lon": 0.742124,
+    "source": "api",
+    "date_added": "2026-05-11"
+  },
+  "* au Lhangare 19 rue Pierre Sémard 24800 Thiviers": {
+    "lat": 45.41442,
+    "lon": 0.9194243,
+    "source": "api",
+    "date_added": "2026-05-11"
+  },
+  "Route de Bourliou 24310 Biras": {
+    "lat": 45.2821656,
+    "lon": 0.6402617,
+    "source": "api",
+    "date_added": "2026-05-11"
+  },
+  "Cinéma Louis Delluc Place des Droits de l'Homme 24300 Nontron": {
+    "lat": 45.5232024,
+    "lon": 0.6604425,
+    "source": "api",
+    "date_added": "2026-05-11"
+  },
+  "Gorre": {
+    "lat": 45.7413889,
+    "lon": 0.9836111,
+    "source": "api",
+    "date_added": "2026-05-11"
+  },
+  "Sarlande 24270": {
+    "lat": 45.4508276,
+    "lon": 1.1166957,
+    "source": "api",
+    "date_added": "2026-05-11"
+  },
+  "10 Impasse du Pouyol 24360 Champniers-et-Reilhac": {
+    "lat": 45.6714746,
+    "lon": 0.733886,
+    "source": "api",
+    "date_added": "2026-05-15"
+  },
+  "Esplanade du Claud 24300 Saint-Martial-de-Valette": {
+    "lat": 45.5226819,
+    "lon": 0.6578823,
+    "source": "api",
+    "date_added": "2026-05-15"
+  },
+  "Le Sonneur 25 Rue D'angoulême 16220 Montbron": {
+    "lat": 45.6664226,
+    "lon": 0.4994516,
+    "source": "api",
+    "date_added": "2026-05-15"
+  },
+  "Place de l'Église 24800 Chalais": {
+    "lat": 45.5092204,
+    "lon": 0.9273322,
+    "source": "api",
+    "date_added": "2026-05-15"
+  },
+  "40 Place Puyrajou 24470 Champs-Romain": {
+    "lat": 45.532978,
+    "lon": 0.776036,
+    "source": "api",
+    "date_added": "2026-05-15"
+  },
+  "Place Pol Dupuy 24360 Saint-Estèphe": {
+    "lat": 45.5911774,
+    "lon": 0.6631425,
+    "source": "api",
+    "date_added": "2026-05-15"
+  },
+  "hautefort": {
+    "lat": 45.2594367,
+    "lon": 1.146062,
+    "source": "api",
+    "date_added": "2026-05-15"
+  },
+  "Pensol": {
+    "lat": 45.6110887,
+    "lon": 0.8263019,
+    "source": "api",
+    "date_added": "2026-05-15"
+  },
+  "Rue des Plaisances 87500 Saint-Yrieix-la-Perche": {
+    "lat": 45.5153471,
+    "lon": 1.2011244,
+    "source": "api",
+    "date_added": "2026-05-17"
+  },
+  "25 Rue D'angoulême bar associatif Le Sonneur 16220 Montbron": {
+    "lat": 45.6664226,
+    "lon": 0.4994516,
+    "source": "api",
+    "date_added": "2026-05-17"
+  },
+  "Champsac": {
+    "lat": 45.7009227,
+    "lon": 0.9563524,
+    "source": "api",
+    "date_added": "2026-05-17"
+  },
+  "Rue Pierre Sémard 24800 Thiviers": {
+    "lat": 45.417423,
+    "lon": 0.9199669,
+    "source": "api",
+    "date_added": "2026-05-17"
+  },
+  "576 Route René Dutin 24300 Nontron": {
+    "lat": 45.5589628,
+    "lon": 0.6716492,
+    "source": "api",
+    "date_added": "2026-05-17"
+  },
+  "3 Place François Mitterrand 24800 Saint-Jory-de-Chalais": {
+    "lat": 45.4989754,
+    "lon": 0.8993802,
+    "source": "api",
+    "date_added": "2026-05-18"
+  },
+  "3928 Route de Pauliac 24450 Firbeix": {
+    "lat": 45.60244,
+    "lon": 0.9496815,
+    "source": "api",
+    "date_added": "2026-05-26"
+  },
+  "Labraud 87440 Maisonnais-sur-Tardoire": {
+    "lat": 45.7284524,
+    "lon": 0.7171783,
+    "source": "api",
+    "date_added": "2026-05-26"
+  },
+  "Route de Rozet 16320 Combiers": {
+    "lat": 45.5297789,
+    "lon": 0.3961414,
+    "source": "api",
+    "date_added": "2026-05-26"
+  },
+  "Route du Trieux 24360 Champniers-et-Reilhac": {
+    "lat": 45.6634697,
+    "lon": 0.712369,
+    "source": "api",
+    "date_added": "2026-05-26"
+  },
+  "35 Avenue Simone Veil 24420 Sorges et Ligueux en Périgord": {
+    "lat": 45.2989199,
+    "lon": 0.822535,
+    "source": "api",
+    "date_added": "2026-05-26"
+  },
+  "Salle Attane 87500 Saint-Yrieix-la-Perche": {
+    "lat": 45.5151843,
+    "lon": 1.2012069,
+    "source": "api",
+    "date_added": "2026-05-26"
+  },
+  "29 Rue du Caillaudou 87150 Champagnac-la-Rivière": {
+    "lat": 45.7103601,
+    "lon": 0.9130229,
+    "source": "api",
+    "date_added": "2026-05-26"
+  },
+  "Souffrignac": {
+    "lat": 45.5925793,
+    "lon": 0.5045947,
+    "source": "api",
+    "date_added": "2026-05-26"
+  },
+  "Saint-Martial-d'Albarède": {
+    "lat": 45.3267768,
+    "lon": 1.0332998,
+    "source": "api",
+    "date_added": "2026-05-29"
+  },
+  "Saint-Estèphe RDV": {
+    "lat": 47.6556463,
+    "lon": -2.7563416,
+    "source": "api",
+    "date_added": "2026-05-29"
+  },
+  "391 Avenue du Tacot 24530 Quinsac": {
+    "lat": 45.4297117,
+    "lon": 0.7060591,
+    "source": "api",
+    "date_added": "2026-05-29"
+  },
+  "La Rochebeaucourt et Argentine 24340": {
+    "lat": 45.4836853,
+    "lon": 0.3797403,
+    "source": "api",
+    "date_added": "2026-05-29"
+  },
+  "44 Rue du Souvenir 24300 Saint-Front-la-Rivière": {
+    "lat": 45.4732408,
+    "lon": 0.7261957,
+    "source": "api",
+    "date_added": "2026-05-31"
+  },
+  "5 Route du Grand Bois 24300 Abjat-sur-Bandiat": {
+    "lat": 45.5927882,
+    "lon": 0.7935756,
+    "source": "api",
+    "date_added": "2026-05-31"
+  },
+  "2930 Route Pierre de Bourdeille 24310 Bourdeilles": {
+    "lat": 45.3064251,
+    "lon": 0.5711564,
+    "source": "api",
+    "date_added": "2026-05-31"
+  },
+  "Impasse du Prat 24160 Anlhiac": {
+    "lat": 45.3161996,
+    "lon": 1.1088642,
+    "source": "api",
+    "date_added": "2026-05-31"
+  },
+  "Route du Moulin 24450 Saint-Pierre-de-Frugie": {
+    "lat": 45.5674949,
+    "lon": 1.0196308,
+    "source": "api",
+    "date_added": "2026-06-06"
+  },
+  "Route René Dutin 24300 Nontron": {
+    "lat": 45.5589628,
+    "lon": 0.6716492,
+    "source": "api",
+    "date_added": "2026-06-06"
+  },
+  "219 Rue des Amandiers 24360 Busserolles": {
+    "lat": 45.6703627,
+    "lon": 0.6281888,
+    "source": "api",
+    "date_added": "2026-06-06"
+  },
+  "sarrazac": {
+    "lat": 45.4372222,
+    "lon": 1.0305556,
+    "source": "api",
+    "date_added": "2026-06-06"
+  },
+  "vienne": {
+    "lat": 46.6121165,
+    "lon": 0.465407,
+    "source": "api",
+    "date_added": "2026-06-22"
+  },
+  "42 Avenue de Perigueux 24450 La Coquille": {
+    "lat": 45.5311664,
+    "lon": 0.9665891,
+    "source": "api",
+    "date_added": "2026-06-08"
+  },
+  "Route de L'Haut Peyrat 24300 Abjat-sur-Bandiat": {
+    "lat": 45.6027603,
+    "lon": 0.7489271,
+    "source": "api",
+    "date_added": "2026-06-08"
+  },
+  "Le lindois": {
+    "lat": 45.7457227,
+    "lon": 0.5913428,
+    "source": "api",
+    "date_added": "2026-06-08"
+  },
+  "5 Esplanade du Claud 24300 Saint-Martial-de-Valette": {
+    "lat": 45.5226819,
+    "lon": 0.6578823,
+    "source": "api",
+    "date_added": "2026-06-12"
+  },
+  "19 Rue des Ecoles 24470 Saint-Saud-Lacoussière": {
+    "lat": 45.5430309,
+    "lon": 0.8169675,
+    "source": "api",
+    "date_added": "2026-06-12"
+  },
+  "125 Place du Champ de Foire 24310 Brantôme en Périgord": {
+    "lat": 45.3619766,
+    "lon": 0.6501338,
+    "source": "api",
+    "date_added": "2026-06-12"
+  },
+  "* au Chat'Pline 47 rue du Général Lamy 24800 Thiviers": {
+    "lat": 45.41442,
+    "lon": 0.9194243,
+    "source": "api",
+    "date_added": "2026-06-15"
+  },
+  "Plazac": {
+    "lat": 45.0352048,
+    "lon": 1.0396967,
+    "source": "api",
+    "date_added": "2026-06-15"
+  },
+  "place Winston Churchill 87000 Limoges": {
+    "lat": 45.8316685,
+    "lon": 1.2516798,
+    "source": "api",
+    "date_added": "2026-06-20"
+  },
+  "1 Boulevard Gambetta 24300 Nontron": {
+    "lat": 45.5299322,
+    "lon": 0.6596917,
+    "source": "api",
+    "date_added": "2026-06-20"
+  },
+  "935 Route des Mas 24800 Chalais": {
+    "lat": 45.5115369,
+    "lon": 0.9398521,
+    "source": "api",
+    "date_added": "2026-06-20"
+  },
+  "4 Impasse Sous Chardonnieras 24470 Saint-Saud-Lacoussière": {
+    "lat": 45.5410924,
+    "lon": 0.8191139,
+    "source": "api",
+    "date_added": "2026-06-20"
+  },
+  "3 Les Champs 87440 Saint-Mathieu": {
+    "lat": 45.7156291,
+    "lon": 0.7886967,
+    "source": "api",
+    "date_added": "2026-06-20"
+  },
+  "MARTHON (Charente)": {
+    "lat": 45.6125649,
+    "lon": 0.4445004,
+    "source": "api",
+    "date_added": "2026-06-20"
+  },
+  "Eymouthiers": {
+    "lat": 45.6424539,
+    "lon": 0.5455683,
+    "source": "api",
+    "date_added": "2026-06-20"
+  },
+  "La Chapelle-Montbrandeix": {
+    "lat": 45.6461408,
+    "lon": 0.848565,
+    "source": "api",
+    "date_added": "2026-06-22"
+  },
+  "Place de l'Église 24470 Milhac-de-Nontron": {
+    "lat": 45.4676496,
+    "lon": 0.7813555,
+    "source": "api",
+    "date_added": "2026-06-22"
+  },
+  "Place de l'Eglise 24800 Saint-Jean-de-Côle": {
+    "lat": 45.4212685,
+    "lon": 0.8378469,
+    "source": "api",
+    "date_added": "2026-06-24"
+  },
+  "2 Place André Marchaps 24340 Mareuil en Périgord": {
+    "lat": 45.450297,
+    "lon": 0.4508342,
+    "source": "api",
+    "date_added": "2026-06-24"
+  },
+  "Route des Champs de Coquelicots 24450 Saint-Priest-les-Fougères": {
+    "lat": 45.5485657,
+    "lon": 1.0479611,
+    "source": "api",
+    "date_added": "2026-06-28"
+  },
+  "Avenue Docteur Devillard 24310 Brantôme en Périgord": {
+    "lat": 45.3607626,
+    "lon": 0.6502862,
+    "source": "api",
+    "date_added": "2026-07-01"
+  },
+  "Rue de l'Eglise 24300 Lussas-et-Nontronneau": {
+    "lat": 45.5312178,
+    "lon": 0.6063496,
+    "source": "api",
+    "date_added": "2026-07-01"
+  },
+  "Chemin des Planches 87150 Champagnac-la-Rivière": {
+    "lat": 45.7089188,
+    "lon": 0.9102152,
+    "source": "api",
+    "date_added": "2026-07-01"
+  },
+  "marthon": {
+    "lat": 45.6125649,
+    "lon": 0.4445004,
+    "source": "api",
+    "date_added": "2026-07-01"
+  },
+  "Route du Pervendoux 24160 Génis": {
+    "lat": 45.354597,
+    "lon": 1.1797277,
+    "source": "api",
+    "date_added": "2026-07-04"
+  },
+  "Café associatif le sonneur Rue D'angoulême 16220 Montbron": {
+    "lat": 45.6664226,
+    "lon": 0.4994516,
+    "source": "api",
+    "date_added": "2026-07-04"
+  },
+  "84 Rue de la Libération 24360 Piégut-Pluviers": {
+    "lat": 45.620386,
+    "lon": 0.6962526,
+    "source": "api",
+    "date_added": "2026-10-03"
+  },
+  "Chemin des Sources 24360 Saint-Estèphe": {
+    "lat": 45.634853,
+    "lon": 0.6389176,
+    "source": "api",
+    "date_added": "2026-10-03"
+  },
+  "La Brousse 16410 Sers": {
+    "lat": 45.5747902,
+    "lon": 0.2983113,
+    "source": "api",
+    "date_added": "2026-10-03"
+  },
+  "Rue du Caillaudou 87150 Champagnac-la-Rivière": {
+    "lat": 45.7098703,
+    "lon": 0.9124758,
+    "source": "api",
+    "date_added": "2026-10-03"
+  },
+  "38 Avenue Georges Pompidou 24000 Périgueux": {
+    "lat": 45.1905373,
+    "lon": 0.7254889,
+    "source": "api",
+    "date_added": "2026-10-03"
+  },
+  "Rue du Stade 24630 Jumilhac-le-Grand": {
+    "lat": 45.4973482,
+    "lon": 1.0775106,
+    "source": "api",
+    "date_added": "2026-10-03"
+  },
+  "La-Chapelle-Faucher": {
+    "lat": 45.3715758,
+    "lon": 0.7512002,
+    "source": "api",
+    "date_added": "2026-10-03"
+  },
+  "Fontaine Couverte": {
+    "lat": 47.9082937,
+    "lon": -1.1441528,
+    "source": "api",
+    "date_added": "2026-10-03"
+  },
+  "Angoulême": {
+    "lat": 45.6484505,
+    "lon": 0.1561947,
+    "source": "api",
+    "date_added": "2026-10-03"
   }
 }

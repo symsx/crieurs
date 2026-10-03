@@ -1,2 +1,5 @@
 python-dotenv==1.0.0
 beautifulsoup4==4.12.2
+requests
+# htmlmin (non maintenu) ne fonctionne plus depuis Python 3.13 ; htmlmin2 fournit le même module `htmlmin`
+htmlmin2

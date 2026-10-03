@@ -48,3 +48,9 @@ test_*.py
 *~
 .DS_Store
 Thumbs.db
+
+# Outils d'extraction d'adresses email (données personnelles et journaux générés)
+data/adresses_emails.csv
+data/emails_by_domain/
+extraction_log.txt
+debug_emails.py

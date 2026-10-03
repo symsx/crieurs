@@ -281,7 +281,7 @@ def extract_message_fields(message: dict):
     
     # Extrait "Où : "
     lieu_match = re.search(
-        r'Où\s*:\s*(.*?)(?=Descriptif)',
+        r'Où\s*:\s*(.*?)(?=Descriptif|-->\s*Visitez|-->\s*Une pièce jointe|📅\s*Cet|Contactez|Ne répondez|$)',
         content,
         re.DOTALL
     )
@@ -291,13 +291,36 @@ def extract_message_fields(message: dict):
         message['lieu'] = lieu_text
     
     # Extrait "Descriptif"
+    # Essaie d'abord le format standard avec "Descriptif" et tirets
     descriptif_match = re.search(
-        r'Descriptif\s*\n\s*-+\s*\n+(.*?)(?:-->\s*Visitez|-->\s*Une pièce jointe|📅\s*Cet événement|^-{10,})',
+        r'Descriptif\s*\n\s*-+\s*\n+(.*?)(?:-->\s*Visitez|-->\s*Une pièce jointe|📅\s*Cet|^-{10,}|Contactez|Ne répondez)',
         content,
         re.DOTALL | re.MULTILINE
     )
+    
+    # Si pas trouvé, essaie de capturer tout le texte après "Où :" jusqu'aux marqueurs de fin
+    if not descriptif_match:
+        ou_match = re.search(
+            r'Où\s*:\s*[^\n]*\n(.*?)(?:-->\s*Visitez|-->\s*Une pièce jointe|📅\s*Cet|Contactez|Ne répondez|$)',
+            content,
+            re.DOTALL
+        )
+        if ou_match:
+            descriptif_match = ou_match
+    
     if descriptif_match:
         descriptif_text = descriptif_match.group(1).strip()
+        # Enlève les lignes qui ne sont que des tirets
+        lines = descriptif_text.split('\n')
+        filtered = []
+        for l in lines:
+            stripped = l.strip()
+            # Ignore les lignes vides ou juste des tirets
+            if stripped and not re.match(r'^-+$', stripped):
+                filtered.append(stripped)
+        
+        descriptif_text = '\n'.join(filtered).strip()
+        
         # Extraits AVANT nettoyage
         phone = extract_phone_number(descriptif_text)
         message['telephone'] = phone
@@ -404,6 +427,11 @@ def extract_libre_expression_events(email_content: str) -> list:
         lines = part.split('\n', 1)
         message_content = lines[1] if len(lines) > 1 else ""
         
+        # Tronque le message_content à la prochaine section importante
+        # (avant le prochain email s'il y a un autre Message-ID dans cette partie)
+        if 'Message-ID:' in message_content:
+            message_content = message_content.split('Message-ID:')[0]
+        
         # Trouve le titre, email et lieu correspondants du sommaire
         titre = ""
         email_auteur = ""
@@ -420,19 +448,41 @@ def extract_libre_expression_events(email_content: str) -> list:
                 # Si un seul type et ce n'est pas le type d'annonce, c'est le lieu
                 lieu = types[0]
         
-        # Extrait le texte après les en-têtes (Date, From, Subject) et avant le séparateur "-----"
-        # Deux formats possibles :
+        # Extrait le texte après les en-têtes (Date, From, Subject) et avant le séparateur
+        # Plusieurs formats possibles :
         # 1. Avec HTML : [ Texte initialement au format HTML ]\n[Auteur] - [Lieu]\n-----...texte...
         # 2. Simple : texte direct sans préambule
+        # 3. Peut se terminer par: tirets (-----) OU Message-ID: OU fins de email
+        # IMPORTANT: Le Subject peut s'étendre sur plusieurs lignes (continuation via espaces)!
         
+        # DEBUG : affiche ce qui est extrait pour la première annonce
+        debug_idx = (idx == 1)
+        
+        # Cherche après la ligne Subject complète (avec continuations sur plusieurs lignes)
+        # Les continuations commencent par un espace ou une tabulation
+        # Puis capture tout après jusqu'au séparateur
         texte_match = re.search(
-            r'Subject:.*?\n(.*?)\n\-{10,}',
+            r'Subject:[^\n]*(?:\n[ \t][^\n]*)*\n(.*?)(?:\n\s*\n\s*-{10,}|(?:\n\s*Message-ID:)|$)',
             message_content,
-            re.DOTALL | re.IGNORECASE
+            re.DOTALL
         )
+        
+        if not texte_match:
+            # Fallback: cherche tout après Subject jusqu'à un séparateur (tirets)
+            texte_match = re.search(
+                r'Subject:[^\n]*(?:\n[ \t][^\n]*)*\n(.*?)(?:\n\s*-{10,}|$)',
+                message_content,
+                re.DOTALL
+            )
         
         if texte_match:
             texte_brut = texte_match.group(1).strip()
+            
+            # DEBUG
+            if debug_idx and titre and 'fourches' in texte_brut.lower():
+                print(f"\n[DEBUG] Annonce #{idx} - {titre}")
+                print(f"Message content snippet: {message_content[:200]}...")
+                print(f"Raw extraction: {repr(texte_brut[:200])}")
             
             # Ignore les lignes à supprimer :
             # 1. "[ Texte initialement au format HTML ]"
@@ -536,21 +586,23 @@ def process_annonces_source(email: str, password: str, imap_server: str, imap_po
         all_events_consolidated = []
         
         # Utilise la logique d'extraction appropriée selon la source
-        if source['filter'] == 'crieur-libre-expression':
-            # Expression libre: texte libre entre tirets
+        if source['filter'] == 'crieur-libre-expression' or source['filter'] == 'crieur-solidaire':
+            # Expression libre ET Solidaire: texte libre entre tirets
+            # (Solidaire contient du contenu libre tout comme Expression Libre)
             for email_msg in emails:
                 email_content = email_msg['body']
                 email_date = email_msg['date']
                 
                 events = extract_libre_expression_events(email_content)
                 
-                # Ajoute la date de l'email à chaque événement
+                # Ajoute la date de l'email et le flag solidaire à chaque événement
                 for event in events:
                     event['email_date'] = email_date
+                    event['is_solidaire'] = source['filter'] == 'crieur-solidaire'
                 
                 all_events_consolidated.extend(events)
         else:
-            # Sorties: extraction sommaire + messages structurés
+            # Sorties, Solidaire, Annonces Commerciales: extraction sommaire + messages structurés
             for email_msg in emails:
                 email_content = email_msg['body']
                 email_date = email_msg['date']
@@ -566,9 +618,13 @@ def process_annonces_source(email: str, password: str, imap_server: str, imap_po
                 # Consolide les événements
                 events_consolidated = consolidate_events(events_sommaire, messages)
                 
-                # Ajoute la date de l'email à chaque événement
+                # Ajoute la date de l'email et le flag solidaire à chaque événement
                 for event in events_consolidated:
                     event['email_date'] = email_date
+                    if source['filter'] == 'crieur-solidaire':
+                        event['is_solidaire'] = True
+                    else:
+                        event['is_solidaire'] = False
                 
                 all_events_consolidated.extend(events_consolidated)
         
@@ -607,8 +663,8 @@ def process_annonces_source(email: str, password: str, imap_server: str, imap_po
         # Convertit au format HTMLGenerator
         events_html_format = []
         for event in all_events_consolidated:
-            if source['filter'] == 'crieur-libre-expression':
-                # Expression libre: structure simplifiée
+            if source['filter'] == 'crieur-libre-expression' or source['filter'] == 'crieur-solidaire':
+                # Expression libre et Solidaire: structure simplifiée avec texte libre
                 # Convertit les liens HTTP en liste (ou None si vide)
                 http_links = event.get('http_links', [])
                 # Extrait la commune du lieu pour expression libre
@@ -616,7 +672,7 @@ def process_annonces_source(email: str, password: str, imap_server: str, imap_po
                     
                 event_html = {
                     'subject': event['titre'],
-                    'date': '',  # Pas de date pour expression libre
+                    'date': '',  # Pas de date pour expression libre/solidaire
                     'location': event.get('lieu_detail', ''),  # ✅ Lieu du sommaire si présent
                     'description': event.get('texte_libre', ''),  # Texte libre à la place de descriptif
                     'links': http_links if http_links else None,  # ✅ Utilise les liens HTTP
@@ -625,11 +681,12 @@ def process_annonces_source(email: str, password: str, imap_server: str, imap_po
                     'mailcontact': event['mailcontact'],
                     'email_date': event.get('email_date', 'Non spécifiée'),
                     'organizer_email': event['mailorga'],
-                    'is_libre_expression': True,  # Marqueur pour le template
+                    'is_libre_expression': source['filter'] == 'crieur-libre-expression',  # Marqueur pour Expression Libre uniquement
+                    'is_solidaire': source['filter'] == 'crieur-solidaire',  # Flag pour Solidaire
                     'commune': commune  # ✅ Ajoute la commune
                 }
             else:
-                # Sorties: structure complète
+                # Sorties, Solidaire, Annonces Commerciales: structure complète
                 links = []
                 if event.get('lien'):
                     links.append(event['lien'])
@@ -658,6 +715,7 @@ def process_annonces_source(email: str, password: str, imap_server: str, imap_po
                     'email_date': event.get('email_date', 'Non spécifiée'),
                     'organizer_email': event['mailorga'],
                     'is_libre_expression': False,
+                    'is_solidaire': event.get('is_solidaire', False),  # Flag pour Solidaire
                     'commune': commune  # ✅ Ajoute la commune
                 }
             events_html_format.append(event_html)

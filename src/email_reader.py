@@ -1039,10 +1039,11 @@ class HTMLGenerator:
     
     def _generate_event_card(self, event: Dict) -> str:
         """Génère la carte HTML d'un événement"""
-        # Vérifie si c'est un événement d'expression libre
+        # Vérifie si c'est un événement d'expression libre ou solidaire
         is_libre_expression = event.get('is_libre_expression', False)
+        is_solidaire = event.get('is_solidaire', False)
         
-        if is_libre_expression:
+        if is_libre_expression and not is_solidaire:
             # Template simplifié pour expression libre (pas de popup, pas de date/lieu)
             # Génère le HTML pour le texte libre (à la place de la tooltip popup)
             description = event.get('description', '').replace('\n', '<br>')
